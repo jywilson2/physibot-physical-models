@@ -20,17 +20,17 @@ Sparks are shared backend compute (Ch. 13). Students are not assumed to own one.
 
 | Field | Value |
 |-------|-------|
-| Isaac Lab tag | **`v3.0.0`** |
-| Commit | `37ddf626871758333d6ed89cf64ad702aef127d0` |
+| Isaac Lab tag | **`v3.0.0`** (GA) |
+| Permalink | https://github.com/isaac-sim/IsaacLab/releases/tag/v3.0.0 |
 | ROS 2 via Lab | Humble (`ros2` Docker profile / `Dockerfile.ros2`) |
 | Course ROS image | `docker/compose.yaml` — separate from Isaac containers |
 
-Newer tags (e.g. `v3.0.0`) may exist; stick to the pin above unless the instructor updates `STATUS.md` and this README.
+Stick to the pin above unless the instructor updates `STATUS.md` and this README.
 
 Upstream:
 
-- [Isaac Lab installation](https://docs.nvidia.com/isaaclab/isaac-lab/installation)
-- [Isaac Lab Docker guide](https://isaac-sim.github.io/IsaacLab/main/source/deployment/docker.html)
+- [Isaac Lab v3.0.0 installation](https://isaac-sim.github.io/IsaacLab/v3.0.0/source/isaaclab/installation.html)
+- [Isaac Lab release](https://github.com/isaac-sim/IsaacLab/releases/tag/v3.0.0)
 - Course notes: [`docs/adaptation-notes/isaac-lab.md`](../../docs/adaptation-notes/isaac-lab.md)
 
 ## Goals
