@@ -1,0 +1,23 @@
+name: smoke
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  layout:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Repo layout smoke
+        run: bash tests/smoke/test_repo_layout.sh
+
+  # Docker image build is optional until registry/cache strategy is set.
+  # Uncomment when runners can pull ros:humble images reliably:
+  # ros2-image:
+  #   runs-on: ubuntu-22.04
+  #   steps:
+  #     - uses: actions/checkout@v4
+  #     - run: docker compose -f docker/compose.yaml build ros2

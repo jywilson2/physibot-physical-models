@@ -1,0 +1,42 @@
+# PhysiBot student ROS 2 image — Humble (Isaac Lab–aligned)
+# Evidence: Isaac Lab Dockerfile.ros2 installs ROS 2 Humble
+#   https://docs.nvidia.com/isaaclab/isaac-lab/installation
+FROM ros:humble-ros-base-jammy
+
+ENV DEBIAN_FRONTEND=noninteractive \
+    ROS_DISTRO=humble \
+    LANG=C.UTF-8
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    build-essential \
+    cmake \
+    git \
+    python3-colcon-common-extensions \
+    python3-pip \
+    python3-rosdep \
+    ros-humble-rmw-cyclonedds-cpp \
+    ros-humble-robot-state-publisher \
+    ros-humble-xacro \
+    ros-humble-tf2-ros \
+    ros-humble-tf2-tools \
+    && rm -rf /var/lib/apt/lists/*
+
+# Optional Nav2 metapackage — large; enable when labs need it
+ARG INSTALL_NAV2=0
+RUN if [ "$INSTALL_NAV2" = "1" ]; then \
+      apt-get update && apt-get install -y --no-install-recommends ros-humble-navigation2 ros-humble-nav2-bringup \
+      && rm -rf /var/lib/apt/lists/*; \
+    fi
+
+WORKDIR /ws
+COPY code/ros2_ws/src /ws/src
+
+# rosdep may need network on first build; ignore failures in scaffold images
+RUN rosdep init 2>/dev/null || true \
+ && rosdep update --rosdistro humble || true
+
+COPY docker/entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+
+ENTRYPOINT ["/entrypoint.sh"]
+CMD ["bash"]

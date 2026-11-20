@@ -1,0 +1,12 @@
+PhysiBot textbook sources — Creative Commons Attribution-NonCommercial 4.0
+
+Copyright (c) 2026 PhysiBot contributors
+
+Licensed under CC BY-NC 4.0:
+https://creativecommons.org/licenses/by-nc/4.0/
+
+This directory holds narrative sources and export configuration used to
+produce PDF and DOCX course materials. Commercial use of the narrative is
+not permitted under CC BY-NC 4.0 without a separate grant.
+
+Software under `code/` and `docker/` remains Apache-2.0 (see repository root).

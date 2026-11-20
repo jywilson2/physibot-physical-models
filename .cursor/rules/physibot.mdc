@@ -1,0 +1,14 @@
+---
+description: PhysiBot course repo conventions
+globs:
+  - "**/*"
+---
+
+# PhysiBot
+
+- Brand: **PhysiBot** — AI physical models for mobile robotics.
+- Sim / Docker first; physical AgileX Limo Pro + Orin Nano only in later chapters.
+- ROS 2 distro: **Humble** (Isaac Lab official `ros2` Docker image). Document pin changes in `STATUS.md`.
+- Textbook narrative: CC BY-NC 4.0. Code: Apache-2.0.
+- Prefer adapting Limo / Nav2 / Isaac Lab examples over greenfield stacks.
+- Keep `STATUS.md` current when handing off for professor review.

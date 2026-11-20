@@ -1,0 +1,11 @@
+PhysiBot
+Copyright 2026 PhysiBot contributors
+
+This product includes software licensed under the Apache License, Version 2.0
+(see LICENSE and LICENSE-CODE).
+
+Textbook and narrative materials under chapters/ and textbook/ are licensed
+under Creative Commons Attribution-NonCommercial 4.0 International (CC BY-NC 4.0).
+
+Third-party robotics packages (AgileX Limo, Nav2, NVIDIA Isaac Lab, ROS 2)
+remain under their respective upstream licenses when vendored or linked.

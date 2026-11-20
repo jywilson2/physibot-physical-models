@@ -1,0 +1,49 @@
+---
+title: "PhysiBot"
+subtitle: "AI Physical Models for Mobile Robotics"
+author: "PhysiBot contributors"
+license: "CC BY-NC 4.0"
+format:
+  pdf:
+    documentclass: book
+    toc: true
+  docx:
+    toc: true
+# Chapter bodies are stubs in ../chapters — expand in a later task.
+---
+
+{{< include frontmatter/title.md >}}
+
+# Course outline
+
+{{< include ../chapters/00-outline.md >}}
+
+# Chapters
+
+{{< include ../chapters/01-welcome-and-docker.md >}}
+
+{{< include ../chapters/02-linear-algebra-refresh.md >}}
+
+{{< include ../chapters/03-mobile-robot-kinematics.md >}}
+
+{{< include ../chapters/04-dynamics-and-physical-models.md >}}
+
+{{< include ../chapters/05-sensing-and-observation-models.md >}}
+
+{{< include ../chapters/06-estimation-fundamentals.md >}}
+
+{{< include ../chapters/07-localization.md >}}
+
+{{< include ../chapters/08-mapping-and-slam.md >}}
+
+{{< include ../chapters/09-navigation-with-nav2.md >}}
+
+{{< include ../chapters/10-learning-with-isaac-lab.md >}}
+
+{{< include ../chapters/11-sim-to-real.md >}}
+
+{{< include ../chapters/12-orin-nano-deploy.md >}}
+
+{{< include ../chapters/13-dgx-spark-training.md >}}
+
+{{< include ../chapters/14-capstone.md >}}

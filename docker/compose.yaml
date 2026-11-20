@@ -1,0 +1,36 @@
+# PhysiBot student stack — ROS 2 Humble
+# Isaac Lab itself is pulled via NVIDIA's containers in later chapters;
+# this Compose file is the everyday student ROS 2 workspace.
+name: physibot
+
+services:
+  ros2:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile.ros2
+      args:
+        INSTALL_NAV2: "0"
+    image: physibot/ros2-humble:local
+    working_dir: /ws
+    volumes:
+      - ../code/ros2_ws:/ws
+    environment:
+      ROS_DISTRO: humble
+      RMW_IMPLEMENTATION: rmw_fastrtps_cpp
+      # Override for multi-robot labs:
+      # ROS_DOMAIN_ID: "42"
+    stdin_open: true
+    tty: true
+    command: bash
+
+  # Smoke helper: build workspace then exit
+  smoke:
+    image: physibot/ros2-humble:local
+    working_dir: /ws
+    volumes:
+      - ../code/ros2_ws:/ws
+    environment:
+      ROS_DISTRO: humble
+    entrypoint: ["/entrypoint.sh"]
+    command: ["bash", "-lc", "colcon build --symlink-install && source install/setup.bash && ros2 pkg list | grep physibot"]
+    profiles: ["smoke"]

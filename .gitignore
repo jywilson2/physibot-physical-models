@@ -1,0 +1,27 @@
+# Build / ROS (colcon build/ dirs — not docs/export-tools)
+**/build/
+**/install/
+**/log/
+**/__pycache__/
+*.pyc
+.colcon/
+
+# Exports / local
+textbook/exports/*
+!textbook/exports/.gitkeep
+*.pdf
+!docs/**/*.pdf
+
+# IDE / OS
+.DS_Store
+.idea/
+.vscode/
+*.swp
+
+# Env / secrets
+.env
+.env.*
+!.env.example
+
+# Docker
+*.tar
