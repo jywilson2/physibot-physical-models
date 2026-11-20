@@ -1,21 +1,39 @@
 # Textbook sources
 
-Narrative chapter Markdown lives in `../chapters/`. This directory holds
-book-level front matter and export configuration for **PDF** and **DOCX**.
+Narrative chapter Markdown lives in `../chapters/` (CC BY-NC 4.0). This
+directory holds book-level front matter and export configuration for **PDF**
+and **DOCX**.
 
-## Intended toolchain
+## Toolchain
 
-- Primary: [Quarto](https://quarto.org/) (`book` project) **or** Pandoc from concatenated Markdown.
-- Outputs: `exports/physibot.pdf`, `exports/physibot.docx` (not generated in PMT-2).
+| Tool | Role |
+|------|------|
+| [Quarto](https://quarto.org/) | Preferred: `textbook/physibot.qmd` → PDF / DOCX / HTML |
+| [Pandoc](https://pandoc.org/) + TeX Live | Fallback via `../docs/export-tools/export-stub.sh` |
+| Docker + `Dockerfile.textbook` | Reproducible PDF/DOCX with no host TeX |
 
-## Build (later)
+## Build commands
+
+From the **repository root**:
 
 ```bash
 # Quarto (preferred when installed)
-quarto render textbook/physibot.qmd
+mkdir -p textbook/exports
+quarto render textbook/physibot.qmd --to pdf --output-dir textbook/exports
+quarto render textbook/physibot.qmd --to docx --output-dir textbook/exports
 
-# Or Pandoc stub
+# Pandoc + host TeX
 ./docs/export-tools/export-stub.sh
+
+# Docker (no host TeX)
+./docs/export-tools/export-pdf-docker.sh
 ```
 
-PMT-2 only ships structure + stubs — full narrative and verified exports are later tasks.
+## Sample artifact
+
+`exports/physibot.pdf` may be committed as a review sample (CC BY-NC 4.0).
+Regenerate before release; DOCX stays local/gitignored by default.
+
+## Status
+
+See [`../STATUS.md`](../STATUS.md) and [`../docs/export-tools/README.md`](../docs/export-tools/README.md).

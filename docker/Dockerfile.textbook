@@ -1,0 +1,23 @@
+# PhysiBot textbook export image — Pandoc + XeLaTeX for reproducible PDF/DOCX.
+# Build:  docker build -f docker/Dockerfile.textbook -t physibot/textbook-export:local .
+# Run:    ./docs/export-tools/export-pdf-docker.sh
+# Host alternative (no Docker): install pandoc + texlive-xetex and run export-stub.sh
+FROM debian:bookworm-slim
+
+ENV DEBIAN_FRONTEND=noninteractive
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
+      pandoc \
+      texlive-xetex \
+      texlive-fonts-recommended \
+      texlive-latex-extra \
+      lmodern \
+      fonts-dejavu \
+      fontconfig \
+      ca-certificates \
+    && rm -rf /var/lib/apt/lists/* \
+    && fc-cache -f
+
+WORKDIR /book
+# Default: export both DOCX and PDF into textbook/exports/
+CMD ["./docs/export-tools/export-stub.sh"]

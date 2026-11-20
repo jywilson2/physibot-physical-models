@@ -14,7 +14,7 @@ jobs:
       - name: Repo layout smoke
         run: bash tests/smoke/test_repo_layout.sh
 
-  unit-kinematics:
+  unit-and-integration:
     runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v4
@@ -24,8 +24,8 @@ jobs:
           python-version: "3.10"
       - name: Install pytest
         run: pip install pytest
-      - name: Diff-drive kinematics unit tests
-        run: python -m pytest tests/unit/test_diff_drive_kinematics.py -q
+      - name: Unit + integration tests (host, no ROS)
+        run: python -m pytest tests/unit tests/integration -q
 
   # Docker image build is optional until registry/cache strategy is set.
   # Uncomment when runners can pull ros:humble images reliably:
@@ -35,3 +35,14 @@ jobs:
   #     - uses: actions/checkout@v4
   #     - run: docker compose -f docker/compose.yaml build ros2
   #     - run: docker compose -f docker/compose.yaml --profile smoke run --rm smoke
+
+  # Optional textbook PDF job (heavy TeX image). Prefer artifact upload over committing.
+  # textbook-pdf:
+  #   runs-on: ubuntu-22.04
+  #   steps:
+  #     - uses: actions/checkout@v4
+  #     - run: ./docs/export-tools/export-pdf-docker.sh
+  #     - uses: actions/upload-artifact@v4
+  #       with:
+  #         name: physibot-pdf
+  #         path: textbook/exports/physibot.pdf

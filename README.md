@@ -30,13 +30,13 @@ Decision details and refresh checklist live in [`STATUS.md`](STATUS.md).
 ## Repository layout
 
 ```
-chapters/          Chapter stubs (full-course outline)
+chapters/          Full-course textbook narrative (Ch. 01–14)
 labs/              Progressive runnable labs (tied to chapter numbers)
-textbook/          Narrative sources + export config (PDF/DOCX)
-docs/              Adaptation notes, build helpers
+textbook/          Quarto book + exports (sample PDF under exports/)
+docs/              Adaptation notes, PDF/DOCX export helpers
 code/ros2_ws/      ROS 2 workspace (description, sim, bringup)
-docker/            Dockerfiles + Compose for student workflow
-tests/             Host smoke + unit tests
+docker/            Student ROS 2 image + textbook TeX export image
+tests/             Host smoke + unit + integration tests
 scripts/           Local helper scripts
 ```
 
@@ -70,11 +70,19 @@ docker compose -f docker/compose.yaml --profile nav2 build ros2_nav2
 docker compose -f docker/compose.yaml --profile nav2 run --rm ros2_nav2 bash
 ```
 
-Host unit tests (no Docker):
+Host tests (no Docker / no ROS):
 
 ```bash
-python3 -m pytest tests/unit/test_diff_drive_kinematics.py -q
 bash tests/smoke/test_repo_layout.sh
+python3 -m pytest tests/unit tests/integration -q
+```
+
+Textbook PDF / DOCX:
+
+```bash
+./docs/export-tools/export-stub.sh          # host pandoc + TeX
+./docs/export-tools/export-pdf-docker.sh    # no host TeX (needs Docker)
+# Sample PDF: textbook/exports/physibot.pdf
 ```
 
 Physical Limo Pro + Orin Nano workflows appear only in later chapters — early work stays in simulation.
@@ -94,9 +102,13 @@ DGX Sparks are instructor/lab backends — students are not assumed to own them.
 | Textbook / narrative (`chapters/`, `textbook/`) | [CC BY-NC 4.0](https://creativecommons.org/licenses/by-nc/4.0/) — see notice in those trees |
 | Code (`code/`, `docker/`, `labs/` READMEs as course ops, scripts, CI) | [Apache License 2.0](LICENSE) — see [`LICENSE-CODE`](LICENSE-CODE) |
 
+## Textbook
+
+Chapter sources: [`chapters/`](chapters/). Build PDF/DOCX from [`textbook/`](textbook/) (Quarto preferred; Pandoc / Docker TeX — see [`docs/export-tools/README.md`](docs/export-tools/README.md)).
+
 ## Status & review
 
-See [`STATUS.md`](STATUS.md) for the review checklist and remaining work.
+Professor review checklist, open PRs, hardware numbers, and PDF/DOCX status: [`STATUS.md`](STATUS.md).
 
 ## Brand
 
