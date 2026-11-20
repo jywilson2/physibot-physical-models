@@ -59,7 +59,7 @@ Typical flow once maps exist (maps come from Chapter 08; instructors may provide
 ```bash
 # Inside course container after colcon build
 source /ws/install/setup.bash
-ros2 launch physibot_bringup localization_sim.launch.py   # name when adapted
+ros2 launch physibot_bringup localization.launch.py
 # In RViz: set initial pose (2D Pose Estimate)
 # Drive with teleop; watch particle cloud collapse
 ```
@@ -108,4 +108,4 @@ Absolute Trajectory Error (ATE) after time alignment is standard in SLAM literat
 ## Professor edit notes
 
 - Ship a default sim world + map for cohorts that have not finished Ch. 08.
-- Finalize launch file names (`localization_sim.launch.py`) when Nav2 overlay merges.
+- Keep launch name `localization.launch.py`; ship a default sim world + map as needed.

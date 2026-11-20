@@ -126,10 +126,10 @@ ros2 pkg list | grep physibot
 
 You should see at least `physibot_bringup` and `physibot_description`.
 
-### Step C — Launch the simulation stub
+### Step C — Launch the robot description
 
 ```bash
-ros2 launch physibot_bringup sim_stub.launch.py
+ros2 launch physibot_bringup description.launch.py
 ```
 
 In a second shell attached to the same Compose network (or another `compose run`):
@@ -140,7 +140,7 @@ ros2 node list
 ros2 topic list
 ```
 
-The stub currently publishes a minimal `robot_description` via `robot_state_publisher` ([`sim_stub.launch.py`](../code/ros2_ws/src/physibot_bringup/launch/sim_stub.launch.py)). It is intentionally thin: later chapters replace it with adapted Limo description and Gazebo/Isaac bringup. Read the launch log—it points at the stub URDF path under `physibot_description`.
+This publishes `robot_description` via `robot_state_publisher` ([`description.launch.py`](../code/ros2_ws/src/physibot_bringup/launch/description.launch.py)). Later chapters add diff-drive sim (`sim_diff_drive.launch.py`) and Nav2 overlays. Read the launch log—it points at the course URDF under `physibot_description`. (`sim_stub.launch.py` is a thin alias that includes `sim_diff_drive`; prefer the canonical names in [`labs/README.md`](../labs/README.md).)
 
 ### Optional smoke profile
 
@@ -161,7 +161,7 @@ This builds the workspace non-interactively and greps for `physibot` packages—
 
 1. Build and enter the `ros2` service. Screenshot or paste `echo $ROS_DISTRO`.
 2. After `colcon build`, list packages matching `physibot`.
-3. Run `sim_stub.launch.py` and identify which node provides TF / robot state.
+3. Run `description.launch.py` and identify which node provides TF / robot state.
 4. Skim [`docs/adaptation-notes/README.md`](../docs/adaptation-notes/README.md) and write three sentences: what we adapt from Limo, Nav2, and Isaac Lab respectively.
 5. *(Grad stretch)* Compare Humble vs. Jazzy on the Isaac Sim ROS 2 page linked in `STATUS.md`. Argue in half a page why this course still pins Humble.
 

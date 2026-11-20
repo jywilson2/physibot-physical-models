@@ -1,6 +1,23 @@
-# PhysiBot Nav2 params — Limo Pro–class footprint.
-# Prefer tuning upstream Nav2 + limo_ros2 examples over rewriting this file.
-# Specs: 322x220 mm body, tread 175 mm, v_max 1.0 m/s.
+# PhysiBot Nav2 params — Limo Pro–class footprint (course overlay).
+#
+# Specs: 322x220 mm body → robot_radius ~0.20 m; tread 175 mm; v_max 1.0 m/s.
+#
+# Diff notes (do not vendor upstream trees into this repo):
+# - Nav2 Humble bringup defaults: navigation2@humble
+#   nav2_bringup/params/nav2_params.yaml — TB3-sized DWB (max_vel_x ~0.26),
+#   robot_radius 0.22, base_link, inflation ~0.55.
+# - AgileX classroom Limo Nav2 (diff-drive): agilex_open_class@8e79975
+#   limo/limo_bringup/param/nav2.yaml — DWB, rectangular footprint
+#   [[0.15,0.10],...], base_link, xy_goal_tolerance 0.15, local inflation 0.25.
+# - limo_ros2@dcc5a863 (humble pin) has driver/description only — no nav2_params.
+#
+# Course choices vs those patterns:
+# - Controller: Regulated Pure Pursuit (simpler for early Nav2 labs) instead of DWB.
+#   Swap to dwb_core::DWBLocalPlanner like AgileX/Nav2 defaults if teaching DWB/MPPI.
+# - Frames: base_footprint (REP-105) to match course URDF; AgileX examples often use base_link.
+# - Footprint: circular robot_radius 0.20 (half-diagonal of 0.322x0.220) instead of polygon.
+# - velocity_smoother max_velocity[0] = 1.0 (published Limo Pro limit), not TB3 0.26.
+# - Goal tolerances closer to AgileX (0.15 m) than stock TB3 (0.25 m).
 
 amcl:
   ros__parameters:
@@ -10,6 +27,7 @@ amcl:
     alpha3: 0.2
     alpha4: 0.2
     alpha5: 0.2
+    # Course URDF uses base_footprint; AgileX open_class AMCL often sets base_link.
     base_frame_id: base_footprint
     global_frame_id: map
     odom_frame_id: odom
@@ -19,6 +37,7 @@ amcl:
     max_particles: 2000
     min_particles: 500
     tf_broadcast: true
+    # Humble Nav2 TB3 default is 1.0; AgileX open_class uses a looser 10.0 for real robots.
     transform_tolerance: 1.0
 
 bt_navigator:
@@ -29,6 +48,8 @@ bt_navigator:
     odom_topic: /odom
     bt_loop_duration: 10
     default_server_timeout: 20
+    # Subset of Humble BT plugins — enough for navigate_to_pose labs; expand toward
+    # full nav2_bringup list when teaching recoveries / through-poses.
     plugin_lib_names:
       - nav2_compute_path_to_pose_action_bt_node
       - nav2_compute_path_through_poses_action_bt_node
@@ -82,6 +103,7 @@ controller_server:
       xy_goal_tolerance: 0.15
       yaw_goal_tolerance: 0.25
     FollowPath:
+      # RPP for early labs; AgileX open_class + Nav2 TB3 defaults use DWB instead.
       plugin: nav2_regulated_pure_pursuit_controller::RegulatedPurePursuitController
       desired_linear_vel: 0.4
       max_linear_accel: 0.5
@@ -115,6 +137,8 @@ local_costmap:
       width: 3
       height: 3
       resolution: 0.05
+      # Circumscribed radius for 0.322 x 0.220 m body (~0.195 → 0.20).
+      # AgileX open_class prefers an explicit rectangular footprint polygon.
       robot_radius: 0.20
       plugins: ["obstacle_layer", "inflation_layer"]
       obstacle_layer:
@@ -128,6 +152,7 @@ local_costmap:
           data_type: LaserScan
       inflation_layer:
         plugin: nav2_costmap_2d::InflationLayer
+        # Between AgileX local (0.25) and Nav2 TB3 (0.55); tune in Lab 09.
         inflation_radius: 0.35
         cost_scaling_factor: 3.0
 
@@ -214,6 +239,7 @@ velocity_smoother:
     smoothing_frequency: 20.0
     scale_velocities: false
     feedback: OPEN_LOOP
+    # Cap linear at published Limo Pro 1.0 m/s (Nav2 TB3 defaults ~0.26).
     max_velocity: [1.0, 0.0, 1.5]
     min_velocity: [-0.3, 0.0, -1.5]
     max_accel: [0.5, 0.0, 1.5]

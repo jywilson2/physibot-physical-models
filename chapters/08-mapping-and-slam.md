@@ -58,7 +58,7 @@ Do not commit huge binary maps to git if they are regenerable; small classroom m
 
 ```bash
 source /ws/install/setup.bash
-ros2 launch physibot_bringup slam_sim.launch.py    # name when adapted
+ros2 launch physibot_bringup mapping.launch.py
 # Teleop a full loop of the teaching world
 ros2 run nav2_map_server map_saver_cli -f /ws/maps/classroom_world
 ```
