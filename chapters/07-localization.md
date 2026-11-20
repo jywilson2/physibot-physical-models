@@ -102,6 +102,9 @@ Absolute Trajectory Error (ATE) after time alignment is standard in SLAM literat
 - Thrun, Burgard, Fox — particle filter localization chapters
 - [`docs/adaptation-notes/nav2.md`](../docs/adaptation-notes/nav2.md)
 
+
+**Runnable lab writeup:** [`labs/07-localization/`](../labs/07-localization/).
+
 ## Professor edit notes
 
 - Ship a default sim world + map for cohorts that have not finished Ch. 08.

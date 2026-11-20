@@ -86,6 +86,9 @@ Then restart Chapter 07 localization using **your** map.
 - [Nav2 map server docs](https://docs.nav2.org/)
 - Cadena et al., “Past, Present, and Future of Simultaneous Localization and Mapping” — survey for grads
 
+
+**Runnable lab writeup:** [`labs/08-mapping/`](../labs/08-mapping/).
+
 ## Professor edit notes
 
 - Pin slam_toolbox version compatible with Humble image.

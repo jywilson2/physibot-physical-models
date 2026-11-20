@@ -173,6 +173,9 @@ This builds the workspace non-interactively and greps for `physibot` packages—
 - Thrun, Burgard, and Fox, *Probabilistic Robotics* — conceptual spine for Ch. 06–08 (we cite chapter-level ideas as we go)
 - Siciliano and Khatib (eds.), *Springer Handbook of Robotics* — optional depth on mobile bases
 
+
+**Runnable lab writeup:** [`labs/01-docker-hello/`](../labs/01-docker-hello/).
+
 ## Professor edit notes
 
 - Confirm lab Docker host OS matrix (Linux required vs. Windows/WSL2 supported).

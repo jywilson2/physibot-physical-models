@@ -91,6 +91,9 @@ After a successful run, write half a page: where did a **kinematic** assumption 
 - Macenski et al., Nav2 papers / ROSCon talks (instructor may assign one)
 - [`docs/adaptation-notes/nav2.md`](../docs/adaptation-notes/nav2.md)
 
+
+**Runnable lab writeup:** [`labs/09-nav2/`](../labs/09-nav2/).
+
 ## Professor edit notes
 
 - Lock footprint numbers from measured Limo Pro units.

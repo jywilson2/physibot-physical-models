@@ -116,6 +116,9 @@ Immediately after the run:
 - [Nav2 on hardware troubleshooting](https://docs.nav2.org/)
 - [`docs/adaptation-notes/limo.md`](../docs/adaptation-notes/limo.md)
 
+
+**Runnable lab writeup:** [`labs/12-orin-deploy/`](../labs/12-orin-deploy/).
+
 ## Professor edit notes
 
 - Publish lab SSID, domain ID assignments, and map files via course LMS.

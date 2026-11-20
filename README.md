@@ -108,7 +108,7 @@ Chapter sources: [`chapters/`](chapters/). Build PDF/DOCX from [`textbook/`](tex
 
 ## Status & review
 
-Professor review checklist, open PRs, hardware numbers, and PDF/DOCX status: [`STATUS.md`](STATUS.md).
+Full-course narrative + progressive labs are on `main`. Professor review checklist, hardware numbers, and PDF/DOCX status: [`STATUS.md`](STATUS.md).
 
 ## Brand
 

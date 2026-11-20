@@ -1,19 +1,10 @@
 # PhysiBot — STATUS (professor review handoff)
 
-**Phase:** PMT-5 review packaging (PDF recipe + sample, stronger tests, unified checklist).  
+**Phase:** PMT-5 review packaging on `main` (PDF recipe + sample, stronger tests, unified checklist).  
 **Last updated:** 2026-11-20  
 **Default branch:** `main`  
-**This packaging PR branch:** `cursor/review-packaging-92ae` (does **not** replace open PRs #1 / #2)
 
-## Open pull requests (coordinate here — do not fight merges)
-
-| PR | Branch | Contents | Notes |
-|----|--------|----------|-------|
-| [#1](https://github.com/jywilson2/physibot-physical-models/pull/1) | `cursor/limo-pro-progressive-labs-c244` | Labs ladder, `physibot_*` packages, Docker/Nav2, kinematics smoke CI | CI green (layout + unit) |
-| [#2](https://github.com/jywilson2/physibot-physical-models/pull/2) | `cursor/textbook-narrative-ecea` | Full Ch. 01–14 narrative, Pandoc export helper, professor edit notes | DOCX OK on agent; PDF was blocked then |
-| **This PR** | `cursor/review-packaging-92ae` | Based on #1 + narrative chapters from #2; PDF sample + Docker TeX recipe; extra unit/integration tests; **this STATUS** | Prefer merge order: **#1 → #2 → packaging**, or merge packaging after resolving STATUS/README once |
-
-Suggested merge order for humans: land labs (#1), then narrative (#2) accepting narrative `chapters/` + export tools, then packaging (or squash packaging after both).
+**Landed:** PR #1 (progressive labs), PR #2 (full textbook narrative), this packaging PR (#3).
 
 ---
 
