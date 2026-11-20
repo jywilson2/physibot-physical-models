@@ -15,6 +15,11 @@
 3. Nav2 localization bringup (adapt existing tutorials).
 4. Lab: localize in a Gazebo/Isaac warehouse-style map.
 
+## Lab
+
+- Runnable writeup: `labs/07-localization/`
+- Launch: `ros2 launch physibot_bringup localization.launch.py` (Nav2 Compose profile)
+
 ## Adaptation notes
 
 - `docs/adaptation-notes/nav2.md`

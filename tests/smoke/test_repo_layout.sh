@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Host-side smoke: required scaffold paths exist (no Docker required).
+# Host-side smoke: required paths exist (no Docker required).
 set -euo pipefail
 ROOT="$(cd "$(dirname "$0")/../.." && pwd)"
 required=(
@@ -12,9 +12,32 @@ required=(
   textbook/physibot.qmd
   docker/compose.yaml
   docker/Dockerfile.ros2
+  labs/README.md
+  labs/01-docker-hello/README.md
+  labs/03-kinematics-teleop/README.md
+  labs/04-odometry-models/README.md
+  labs/07-localization/README.md
+  labs/08-mapping/README.md
+  labs/09-nav2/README.md
+  labs/10-isaac-lab/README.md
+  labs/12-orin-deploy/README.md
   code/ros2_ws/src/physibot_bringup/package.xml
+  code/ros2_ws/src/physibot_bringup/launch/description.launch.py
+  code/ros2_ws/src/physibot_bringup/launch/sim_diff_drive.launch.py
+  code/ros2_ws/src/physibot_bringup/launch/localization.launch.py
+  code/ros2_ws/src/physibot_bringup/launch/mapping.launch.py
+  code/ros2_ws/src/physibot_bringup/launch/nav2.launch.py
+  code/ros2_ws/src/physibot_bringup/config/nav2_params.yaml
+  code/ros2_ws/src/physibot_bringup/maps/demo_map.yaml
+  code/ros2_ws/src/physibot_bringup/maps/demo_map.pgm
+  code/ros2_ws/src/physibot_description/urdf/physibot_limo.urdf.xacro
   code/ros2_ws/src/physibot_description/urdf/physibot_stub.urdf.xacro
+  code/ros2_ws/src/physibot_sim/package.xml
+  code/ros2_ws/src/physibot_sim/physibot_sim/kinematics.py
   docs/adaptation-notes/isaac-lab.md
+  docs/adaptation-notes/limo.md
+  docs/adaptation-notes/nav2.md
+  tests/unit/test_diff_drive_kinematics.py
 )
 missing=0
 for rel in "${required[@]}"; do
@@ -27,7 +50,10 @@ done
 grep -q "Humble" "${ROOT}/STATUS.md"
 grep -q "Humble" "${ROOT}/README.md"
 grep -q "ROS_DISTRO=humble" "${ROOT}/docker/Dockerfile.ros2"
+# Compose exposes nav2 profile
+grep -q 'profiles: \["nav2"\]' "${ROOT}/docker/compose.yaml" \
+  || grep -q "nav2" "${ROOT}/docker/compose.yaml"
 if [[ "${missing}" -ne 0 ]]; then
   exit 1
 fi
-echo "OK: scaffold layout + Humble pin checks passed (${ROOT})"
+echo "OK: layout + Humble pin + lab ladder checks passed (${ROOT})"

@@ -15,6 +15,11 @@
 3. Course choice: adapt slam_toolbox / vendor Limo demos.
 4. Lab: map a sim world; save map for Nav2.
 
+## Lab
+
+- Runnable writeup: `labs/08-mapping/`
+- Launch: `ros2 launch physibot_bringup mapping.launch.py` (Nav2 Compose profile)
+
 ## Adaptation notes
 
 - `docs/adaptation-notes/nav2.md`, `docs/adaptation-notes/limo.md`

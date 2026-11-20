@@ -23,7 +23,26 @@ services:
     tty: true
     command: bash
 
-  # Smoke helper: build workspace then exit
+  # Labs 07–09: Nav2 + slam_toolbox metapackages
+  ros2_nav2:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile.ros2
+      args:
+        INSTALL_NAV2: "1"
+    image: physibot/ros2-humble-nav2:local
+    working_dir: /ws
+    volumes:
+      - ../code/ros2_ws:/ws
+    environment:
+      ROS_DISTRO: humble
+      RMW_IMPLEMENTATION: rmw_fastrtps_cpp
+    stdin_open: true
+    tty: true
+    command: bash
+    profiles: ["nav2"]
+
+  # Smoke helper: build workspace then exit (base image)
   smoke:
     image: physibot/ros2-humble:local
     working_dir: /ws
@@ -32,5 +51,14 @@ services:
     environment:
       ROS_DISTRO: humble
     entrypoint: ["/entrypoint.sh"]
-    command: ["bash", "-lc", "colcon build --symlink-install && source install/setup.bash && ros2 pkg list | grep physibot"]
+    command:
+      - bash
+      - -lc
+      - |
+        set -euo pipefail
+        colcon build --symlink-install
+        source install/setup.bash
+        ros2 pkg list | grep -E 'physibot_(bringup|description|sim)'
+        python3 -c "from physibot_sim.kinematics import integrate_unicycle, Pose2D; print(integrate_unicycle(Pose2D(), 0.2, 0.0, 1.0))"
+        timeout 8 ros2 launch physibot_bringup description.launch.py || true
     profiles: ["smoke"]

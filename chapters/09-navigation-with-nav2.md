@@ -15,6 +15,11 @@
 3. Behavior trees at a high level.
 4. Lab: navigate a mapped sim environment end-to-end.
 
+## Lab
+
+- Runnable writeup: `labs/09-nav2/`
+- Launch: `ros2 launch physibot_bringup nav2.launch.py` (Nav2 Compose profile)
+
 ## Adaptation notes
 
 - Prefer official Nav2 tutorials + AgileX Limo Nav2 examples; see `docs/adaptation-notes/nav2.md`.
