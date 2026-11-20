@@ -29,9 +29,11 @@ docker run --rm -v "$PWD:/book:rw" -w /book physibot/textbook-export:local
 
 ```bash
 sudo apt-get install -y pandoc texlive-xetex texlive-fonts-recommended \
-  texlive-latex-extra lmodern fonts-dejavu
+  texlive-latex-extra lmodern fonts-dejavu librsvg2-bin
 ./docs/export-tools/export-stub.sh
 ```
 
-Math in chapters uses `\(...\)` / `\[...\]`; the export script enables
+Chapter figures (`../textbook/figures/*.svg`) resolve via Pandoc
+`--resource-path=chapters:.`. PDF SVG embedding needs `rsvg-convert`
+(`librsvg2-bin`). Math uses `\(...\)` / `\[...\]`; the export script enables
 `tex_math_single_backslash` so XeLaTeX receives real math mode.
