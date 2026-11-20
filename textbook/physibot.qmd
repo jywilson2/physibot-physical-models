@@ -2,48 +2,86 @@
 title: "PhysiBot"
 subtitle: "AI Physical Models for Mobile Robotics"
 author: "PhysiBot contributors"
+date: last-modified
 license: "CC BY-NC 4.0"
+lang: en
 format:
   pdf:
     documentclass: book
     toc: true
+    toc-depth: 2
+    number-sections: true
+    geometry:
+      - margin=1in
+  html:
+    toc: true
+    toc-depth: 2
+    number-sections: true
+    theme: cosmo
   docx:
     toc: true
-# Chapter bodies are stubs in ../chapters — expand in a later task.
+    number-sections: true
+# Chapter bodies live in ../chapters (CC BY-NC 4.0).
 ---
 
 {{< include frontmatter/title.md >}}
 
-# Course outline
+\newpage
 
 {{< include ../chapters/00-outline.md >}}
 
-# Chapters
+\newpage
 
 {{< include ../chapters/01-welcome-and-docker.md >}}
 
+\newpage
+
 {{< include ../chapters/02-linear-algebra-refresh.md >}}
+
+\newpage
 
 {{< include ../chapters/03-mobile-robot-kinematics.md >}}
 
+\newpage
+
 {{< include ../chapters/04-dynamics-and-physical-models.md >}}
+
+\newpage
 
 {{< include ../chapters/05-sensing-and-observation-models.md >}}
 
+\newpage
+
 {{< include ../chapters/06-estimation-fundamentals.md >}}
+
+\newpage
 
 {{< include ../chapters/07-localization.md >}}
 
+\newpage
+
 {{< include ../chapters/08-mapping-and-slam.md >}}
+
+\newpage
 
 {{< include ../chapters/09-navigation-with-nav2.md >}}
 
+\newpage
+
 {{< include ../chapters/10-learning-with-isaac-lab.md >}}
+
+\newpage
 
 {{< include ../chapters/11-sim-to-real.md >}}
 
+\newpage
+
 {{< include ../chapters/12-orin-nano-deploy.md >}}
 
+\newpage
+
 {{< include ../chapters/13-dgx-spark-training.md >}}
+
+\newpage
 
 {{< include ../chapters/14-capstone.md >}}

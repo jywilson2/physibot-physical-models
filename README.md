@@ -30,8 +30,8 @@ Decision details and refresh checklist live in [`STATUS.md`](STATUS.md).
 ## Repository layout
 
 ```
-chapters/          Chapter stubs (full-course outline)
-textbook/          Narrative sources + export config (PDF/DOCX)
+chapters/          Full-course textbook narrative (Ch. 01–14)
+textbook/          Quarto book + export config (PDF/DOCX)
 docs/              Adaptation notes, build helpers
 code/ros2_ws/      ROS 2 workspace skeleton (student containers)
 docker/            Dockerfiles + Compose for student workflow
@@ -74,9 +74,13 @@ DGX Sparks are instructor/lab backends — students are not assumed to own them.
 | Textbook / narrative (`chapters/`, `textbook/`) | [CC BY-NC 4.0](https://creativecommons.org/licenses/by-nc/4.0/) — see notice in those trees |
 | Code (`code/`, `docker/`, scripts, CI) | [Apache License 2.0](LICENSE) — see [`LICENSE-CODE`](LICENSE-CODE) |
 
+## Textbook
+
+Chapter sources: [`chapters/`](chapters/). Build PDF/DOCX from [`textbook/`](textbook/) (Quarto preferred; Pandoc fallback — see [`textbook/README.md`](textbook/README.md)).
+
 ## Status & review
 
-Scaffold-only for this pass (PMT-2). See [`STATUS.md`](STATUS.md) for the review checklist and remaining work.
+Full-course narrative drafted in `chapters/` (PMT-3). Example adaptations and verified PDF/DOCX exports remain open — see [`STATUS.md`](STATUS.md) for the review checklist and professor edit list.
 
 ## Brand
 

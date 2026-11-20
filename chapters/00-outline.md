@@ -7,7 +7,8 @@ localization → mapping → navigation → Isaac Lab learning → sim-to-real �
 Orin Nano deploy → DGX Spark training → capstone.
 
 Physical AgileX Limo Pro appears only from mid/late course; early work is
-Docker + simulation.
+Docker + simulation. Narrative chapters `01`–`14` are full prose (not stubs);
+launch file names marked “when adapted” track the example-project track.
 
 | Ch | File | Theme | Hardware |
 |----|------|-------|----------|
@@ -27,3 +28,9 @@ Docker + simulation.
 | 14 | `14-capstone.md` | Integrated project | Lab as assigned |
 
 ROS 2 distro for all student containers: **Humble** (Isaac Lab–aligned). See `STATUS.md`.
+
+## How to read
+
+- Each chapter ends with labs/exercises that cross-link `docker/`, `code/ros2_ws/`, and `docs/adaptation-notes/`.
+- Prefer upstream Nav2 / Isaac Lab / AgileX docs for flags that churn; chapters teach structure and pedagogy.
+- Textbook exports: see `textbook/README.md`.
