@@ -37,9 +37,13 @@ if ! command -v pandoc >/dev/null 2>&1; then
   exit 1
 fi
 
+# Chapter image paths are relative to chapters/ (e.g. ../textbook/figures/*.svg).
+RESOURCE_PATH="${ROOT}/chapters:${ROOT}"
+
 echo "Exporting DOCX via pandoc..."
 pandoc \
   --from "${PANDOC_FROM}" \
+  --resource-path="${RESOURCE_PATH}" \
   --toc \
   --metadata title="${TITLE}" \
   "${CHAPTERS[@]}" \
@@ -58,6 +62,7 @@ if [[ -n "${PDF_ENGINE}" ]]; then
   echo "Exporting PDF via pandoc (${PDF_ENGINE})..."
   PDF_ARGS=(
     --from "${PANDOC_FROM}"
+    --resource-path="${RESOURCE_PATH}"
     --toc
     --pdf-engine="${PDF_ENGINE}"
     -V geometry:margin=1in
