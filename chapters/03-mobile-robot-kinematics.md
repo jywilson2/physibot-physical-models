@@ -74,9 +74,21 @@ Car-like (Ackermann) steering uses road-wheel angle \(\delta\) and axle speed, o
 \dot\theta = \frac{v}{L}\tan\delta,
 \]
 
-with wheelbase \(L\). AgileX Limo platforms historically support multiple modes (differential, Ackermann, and sometimes omni depending on variant). **Do not invent the mode map**—read current AgileX Limo ROS 2 documentation and pin the branch used by this course in [`docs/adaptation-notes/limo.md`](../docs/adaptation-notes/limo.md).
+with wheelbase \(L\). AgileX Limo Pro supports differential, Ackermann, tracked, and Mecanum modes ([Limo Pro user manual](https://github.com/agilexrobotics/limo_pro_doc/blob/master/Limo%20Pro%20user%20manual(EN).md)). PhysiBot pins upstream branch `humble` of [`limo_ros2`](https://github.com/agilexrobotics/limo_ros2) in [`docs/adaptation-notes/limo.md`](../docs/adaptation-notes/limo.md).
 
-For PhysiBot’s navigation chapters we standardize on a **differential-drive / unicycle** interface via `cmd_vel` unless the lab explicitly schedules Ackermann mode. That keeps Nav2 configurations comparable to the official [Nav2 Getting Started](https://docs.nav2.org/) differential examples.
+For navigation chapters we standardize on a **differential-drive / unicycle** interface via `cmd_vel` unless a lab explicitly schedules Ackermann mode. That keeps Nav2 configs comparable to the official [Nav2 Getting Started](https://docs.nav2.org/) differential examples.
+
+### Published Limo Pro geometry (course defaults)
+
+| Quantity | Value | Source |
+|----------|-------|--------|
+| Overall L×W×H | 322 × 220 × 251 mm | AgileX Limo Pro tech specs |
+| Wheelbase | 200 mm | same |
+| Tread (track width \(b\)) | 175 mm | same |
+| No-load \(v_{\max}\) | 1.0 m/s | same |
+| Wheel radius \(r\) | **0.040 m teaching estimate** | *not* in published body table — measure tire before physical runs |
+
+Course URDF / kinematics use these numbers ([`limo_body.xacro`](../code/ros2_ws/src/physibot_description/urdf/limo_body.xacro), [`kinematics.py`](../code/ros2_ws/src/physibot_sim/physibot_sim/kinematics.py)). The visual body box height (180 mm) is a simplified collision hull; published **overall** height remains 251 mm including mounts.
 
 ## 3.5 Discrete integration and odometry
 
@@ -98,42 +110,45 @@ accumulates drift. Better integrators (second-order, Runge–Kutta) help numeric
 |---------------|------|
 | `/cmd_vel` (`geometry_msgs/Twist`) | Commanded body twist |
 | `/odom` (`nav_msgs/Odometry`) | Integrated pose + twist |
-| TF `odom` → `base_link` | Same story as `/odom`, as a transform |
+| TF `odom` → `base_footprint` → `base_link` | Odometry chain (REP-105) |
 | TF `base_link` → `laser_link` | Sensor extrinsics |
+
+See [`textbook/figures/tf-tree.svg`](../textbook/figures/tf-tree.svg).
 
 Course packages:
 
-- [`physibot_description`](../code/ros2_ws/src/physibot_description/) — URDF/xacro (stub today; Limo-adapted later).
+- [`physibot_description`](../code/ros2_ws/src/physibot_description/) — Limo-class URDF/xacro teaching model.
+- [`physibot_sim`](../code/ros2_ws/src/physibot_sim/) — planar odom + stub laser nodes.
 - [`physibot_bringup`](../code/ros2_ws/src/physibot_bringup/) — launch overlays.
 
-Vendor description packages remain the source of truth for meshes, wheel parameters, and plugins; PhysiBot only overlays course launch files and teaching configs.
+Vendor `limo_ros2` remains the source of truth for meshes and hardware drivers; PhysiBot overlays course launch files and teaching configs.
 
 ## 3.7 Lab 03 — Open-loop `cmd_vel` in simulation
 
-### Course diff-drive sim (Lab 03)
-
 1. Enter the container and build as in Chapter 01.
-2. Launch the canonical sim bringup:
+2. Launch the course diff-drive sim:
 
 ```bash
 ros2 launch physibot_bringup sim_diff_drive.launch.py
 ```
 
-3. In a second shell, manually publish twists (or use teleop):
+3. In a second shell, publish twists (or use teleop if installed):
 
 ```bash
 source /ws/install/setup.bash
-ros2 topic pub --once /cmd_vel geometry_msgs/msg/Twist \
-  "{linear: {x: 0.2, y: 0.0, z: 0.0}, angular: {x: 0.0, y: 0.0, z: 0.3}}"
+ros2 topic pub /cmd_vel geometry_msgs/msg/Twist \
+  "{linear: {x: 0.2, y: 0.0, z: 0.0}, angular: {x: 0.0, y: 0.0, z: 0.3}}" -r 10
 ```
 
 ```bash
 ros2 run teleop_twist_keyboard teleop_twist_keyboard
 ```
 
-This starts description + `physibot_sim` odometry (and optional stub laser)—enough for TF / `/odom` / `/cmd_vel` without Gazebo. When vendor Gazebo assets are licensed in, keep the same launch **name** and swap internals (see adaptation notes). Visualize in RViz: TF, LaserScan, and Odometry.
+4. Inspect `/odom`, TF (`base_footprint`, `base_link`, `laser_link`), and optionally `/scan` from the stub laser.
 
-### Offline unicycle plotting (required even with stub)
+This is **course stub sim** (no Gazebo required)—description + `physibot_sim` odometry (+ optional stub laser). When licensed vendor meshes land, keep the same launch **name** and swap internals. Cross-link: [`labs/03-kinematics-teleop/`](../labs/03-kinematics-teleop/).
+
+### Offline unicycle plotting (required)
 
 Implement Euler integration of the unicycle model in NumPy and plot:
 
@@ -144,8 +159,8 @@ Compare path length and final pose error if you add 5% scale bias on \(v\).
 
 ## 3.8 Exercises
 
-1. Derive \(\phi_{L}, \phi_{R}\) from \(v, \omega\) for \(r=0.05\,\mathrm{m}\), \(b=0.2\,\mathrm{m}\). What happens when \(|\omega|\) is large enough to saturate one wheel?
-2. Identify frames you expect on the Limo: `base_link`, `odom`, sensor frames—list them from vendor docs once pinned.
+1. Derive \(\phi_{L}, \phi_{R}\) from \(v, \omega\) for course defaults \(r=0.04\,\mathrm{m}\), \(b=0.175\,\mathrm{m}\). What happens when \(|\omega|\) is large enough to saturate one wheel?
+2. List frames from the course URDF: `odom`, `base_footprint`, `base_link`, `laser_link`, `camera_link`, `imu_link`.
 3. Show that pure \(\omega\) with \(v=0\) rotates in place for differential drive but is not a valid bicycle instantaneous motion with \(\delta=0\).
 4. *(Grad)* Read a short section on nonholonomic motion planning (e.g. LaValle, *Planning Algorithms*, free online) and summarize why straight-line interpolation in \((x,y,\theta)\) is a bad open-loop plan.
 
@@ -159,7 +174,7 @@ Compare path length and final pose error if you add 5% scale bias on \(v\).
 
 **Runnable lab writeup:** [`labs/03-kinematics-teleop/`](../labs/03-kinematics-teleop/).
 
-## Professor edit notes
+## Pedagogical defaults (resolved)
 
-- Keep launch name `sim_diff_drive.launch.py`; swap stub meshes/sensors for licensed Limo Gazebo assets when ready.
-- Insert measured Limo Pro \(b\), \(r\), and max \(v,\omega\) from the physical fleet.
+- Launch: `sim_diff_drive.launch.py` (also `description.launch.py` / `sim_stub.launch.py` for smoke); swap stub meshes/sensors for licensed Limo Gazebo assets when ready.
+- Geometry: published AgileX Limo Pro L×W×H / wheelbase / tread / \(v_{\max}\); wheel radius remains a labeled teaching estimate until tires are measured on the fleet.

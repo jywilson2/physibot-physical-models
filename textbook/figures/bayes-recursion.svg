@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="280" viewBox="0 0 760 280" role="img" aria-label="Bayes filter recursion">
+  <title>Bayes filter recursion</title>
+  <defs>
+    <marker id="arr" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L6,3 L0,6 Z" fill="#1e3a5f"/>
+    </marker>
+    <style>
+      .box { fill:#f1f5f9; stroke:#1e3a5f; stroke-width:2; }
+      .pred { fill:#e2e8f0; stroke:#1e3a5f; stroke-width:2; }
+      .t { font-family: DejaVu Sans, Arial, sans-serif; font-size:13px; fill:#0f172a; text-anchor:middle; }
+      .s { font-family: DejaVu Sans, Arial, sans-serif; font-size:11px; fill:#334155; text-anchor:middle; }
+      .e { stroke:#1e3a5f; stroke-width:2; fill:none; marker-end:url(#arr); }
+    </style>
+  </defs>
+  <rect x="40" y="100" width="150" height="70" class="box" rx="6"/>
+  <text x="115" y="128" class="t">bel(x<sub>t-1</sub>)</text>
+  <text x="115" y="150" class="s">prior belief</text>
+
+  <path class="e" d="M190 135 L250 135"/>
+  <text x="220" y="122" class="s">u_t</text>
+
+  <rect x="250" y="100" width="170" height="70" class="pred" rx="6"/>
+  <text x="335" y="128" class="t">bel̄(x_t)</text>
+  <text x="335" y="150" class="s">predict with p(x|u,x′)</text>
+
+  <path class="e" d="M420 135 L480 135"/>
+  <text x="450" y="122" class="s">z_t</text>
+
+  <rect x="480" y="100" width="170" height="70" class="box" rx="6"/>
+  <text x="565" y="128" class="t">bel(x_t)</text>
+  <text x="565" y="150" class="s">update with p(z|x)</text>
+
+  <path class="e" d="M565 170 L565 220 L115 220 L115 170"/>
+  <text x="340" y="212" class="s">recurse</text>
+
+  <text x="380" y="40" class="t">Bayes filter: predict → update → repeat</text>
+  <text x="380" y="62" class="s">EKF / UKF / particle filters instantiate the same loop (Ch. 06–07)</text>
+</svg>

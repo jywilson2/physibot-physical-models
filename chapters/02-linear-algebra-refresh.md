@@ -126,17 +126,19 @@ R^{\top} & -R^{\top} t \\
 \end{bmatrix}.
 \]
 
-**Frames on a Limo-class robot** (names follow ROS REP-105 style; exact tree comes from the vendor URDF once adapted):
+**Frames on the course Limo-class robot** match [`physibot_limo.urdf.xacro`](../code/ros2_ws/src/physibot_description/urdf/physibot_limo.urdf.xacro) / [`limo_body.xacro`](../code/ros2_ws/src/physibot_description/urdf/limo_body.xacro) (REP-105):
 
 ```text
-map  →  odom  →  base_link  →  laser_link / imu_link / camera_link
+map → odom → base_footprint → base_link → {laser_link, imu_link, camera_link}
 ```
 
+![TF tree](../textbook/figures/tf-tree.svg)
+
 - `map` → `odom`: corrected by localization (Ch. 07); may jump.
-- `odom` → `base_link`: continuous odometry; drifts.
+- `odom` → `base_footprint` / `base_link`: continuous odometry; drifts.
 - `base_link` → sensors: fixed extrinsics (calibrate in Ch. 11–12).
 
-The stub description in [`physibot_stub.urdf.xacro`](../code/ros2_ws/src/physibot_description/urdf/physibot_stub.urdf.xacro) is a placeholder; Chapter 03 replaces it with adapted Limo geometry.
+`physibot_stub.urdf.xacro` remains only for ultra-thin smoke tests; labs use the Limo-class description above.
 
 ## 2.7 Poses as elements of \(SE(2)\)
 
@@ -196,7 +198,7 @@ print("T_WS =\n", T_WS)
 - [REP 105: Coordinate Frames for Mobile Platforms](https://www.ros.org/reps/rep-0105.html)
 - [tf2 documentation (Humble)](https://docs.ros.org/en/humble/Tutorials/Intermediate/Tf2/Tf2-Main.html)
 
-## Professor edit notes
+## Pedagogical defaults (resolved)
 
-- Optionally add a short Jupyter notebook under `code/` once the student image pins NumPy explicitly.
-- Align all frame names with the final adapted Limo URDF before midterm.
+- Frame names are locked to the course URDF (`base_footprint`, `base_link`, `laser_link`, `camera_link`, `imu_link`).
+- Optional NumPy Jupyter notebook remains a nice-to-have, not a blocker.

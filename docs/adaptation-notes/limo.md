@@ -35,19 +35,27 @@ Re-verify URLs and re-freeze the SHA each term before CI / Orin images.
 
 ## Published footprint (course URDF / Nav2)
 
-| Spec | Value |
-|------|-------|
-| Body (L×W×H) | 322 × 220 × 251 mm |
-| Wheelbase | 200 mm |
-| Tread (track width) | 175 mm |
-| Mass | ~4.8 kg |
-| Max speed | 1.0 m/s |
-| Ackermann min turn radius | 0.4 m |
-| Drive modes | differential, Ackermann, tracked, Mecanum |
-| On-robot compute (Pro) | NVIDIA Jetson Orin Nano |
-| LiDAR / depth | EAI T-mini Pro / Orbbec DaBai |
+Sources (do not invent unsafe numbers):
 
-Course stub URDF: `code/ros2_ws/src/physibot_description/urdf/physibot_limo.urdf.xacro`.
+- [AgileX Limo Pro user manual — tech specifications](https://github.com/agilexrobotics/limo_pro_doc/blob/master/Limo%20Pro%20user%20manual(EN).md)
+- [LIMO ROS 2 Humble doc — tech specifications](https://github.com/agilexrobotics/limo_ros2_doc/blob/master/LIMO-ROS2-humble(EN).md)
+
+| Spec | Value | Notes |
+|------|-------|-------|
+| Overall L×W×H | 322 × 220 × 251 mm | Published |
+| Wheelbase | 200 mm | Published |
+| Tread (track width) | 175 mm | Published |
+| Mass | ~4.8 kg | Published dead load |
+| Max speed | 1.0 m/s | Published no-load max |
+| Ackermann min turn radius | 0.4 m | Published |
+| Ground clearance | 24 mm | Published |
+| Drive modes | differential, Ackermann, tracked, Mecanum | Published |
+| On-robot compute (Pro) | NVIDIA Jetson Orin Nano | Published |
+| LiDAR / depth | EAI T-mini Pro / Orbbec DaBai | Published |
+| Wheel radius | **0.040 m teaching estimate** | **Not** in AgileX body table — measure tire before physical runs |
+
+Course URDF: `code/ros2_ws/src/physibot_description/urdf/physibot_limo.urdf.xacro`
+(visual body box height 180 mm is a simplified hull; overall published height remains 251 mm).
 
 ## Course overlay plan
 

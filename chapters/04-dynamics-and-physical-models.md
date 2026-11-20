@@ -78,6 +78,8 @@ A wrong model with honest noise covariances often beats a “perfect” black bo
 
 Think of Isaac Lab as a **high-throughput physical model** you can differentiate through and randomize—ideal for residual policies—while Gazebo/ros_gz remains the comfortable home for Nav2 integration labs.
 
+**Course default for early dynamics/viz (Ch. 03–09):** use the **course stub sim** (`physibot_sim` + `sim_diff_drive.launch.py`) and, when available, **Gazebo / ros_gz** for Nav2 integration. **Isaac Sim / Isaac Lab** start in earnest in Chapter 10—do not block weeks 1–9 on Lab GPU setup.
+
 ## 4.6 Lab 04 — Parameter sweep and tracking error
 
 ### Part A — Simulated plant in NumPy
@@ -111,7 +113,7 @@ ros2 bag record -o limo_dyn_sweep /cmd_vel /odom
 
 **Runnable lab writeup:** [`labs/04-odometry-models/`](../labs/04-odometry-models/).
 
-## Professor edit notes
+## Pedagogical defaults (resolved)
 
-- Insert measured step-response plots from the lab Limo fleet when available.
-- Decide Gazebo vs. Isaac Sim as the primary dynamics sandbox for Ch. 04 labs.
+- Early dynamics sandbox: course stub sim (+ Gazebo when meshes are licensed); Isaac Lab from Ch. 10.
+- Fleet step-response plots remain optional cohort cosmetics when hardware bags exist.

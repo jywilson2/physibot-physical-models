@@ -75,18 +75,30 @@ Every message carries a `header.stamp` and usually a `frame_id`. TF lookups fail
 3. Record bags with enough topics to debug sync (`/scan`, `/imu`, `/odom`, `/tf`, `/tf_static`).
 
 ```bash
-ros2 bag record -o sense_lab /scan /imu/data /odom /tf /tf_static /clock
+ros2 bag record -o sense_lab /scan /odom /tf /tf_static /clock
+# add /imu/data when a real or Gazebo IMU is in the graph
 ```
 
-(Exact topic names depend on the adapted bringup—list them with `ros2 topic list` after launch.)
+### Course stub sim topics (today)
+
+After `ros2 launch physibot_bringup sim_diff_drive.launch.py` (with `publish_laser:=true`):
+
+| Topic | Source |
+|-------|--------|
+| `/cmd_vel` | teleop / your publisher |
+| `/odom` | `physibot_sim` diff-drive odom node |
+| `/scan` | `physibot_sim` stub laser (`laser_link`) |
+| `/tf`, `/tf_static` | `robot_state_publisher` + odom |
+
+Always confirm with `ros2 topic list`—vendor Gazebo bringup may rename IMU topics. **Bags stay out of git**; store homework bags on lab/course storage.
 
 ## 5.7 Lab 05 — Inspect simulated scans and IMU
 
-1. Launch the course sim bringup (stub or adapted Limo launch).
+1. Launch `ros2 launch physibot_bringup sim_diff_drive.launch.py`.
 2. `ros2 topic list | grep -E 'scan|imu|odom'`.
-3. `ros2 topic echo --once` on the laser topic; note `angle_min`, `angle_increment`, `ranges` length.
-4. Collect ~30 s of stationary data (robot not moving). Compute mean and variance of a mid-beam range and of yaw-rate if IMU is present.
-5. Deliberately drive a slow rectangle; observe how scan “walls” move in RViz relative to `base_link`.
+3. `ros2 topic echo --once /scan`; note `angle_min`, `angle_increment`, `ranges` length, `header.frame_id` (`laser_link`).
+4. Collect ~30 s of stationary data. Compute mean and variance of a mid-beam range (IMU yaw-rate when available).
+5. Drive a slow rectangle; observe how scan “walls” move in RViz relative to `base_link`.
 
 **Reuse plugins**—do not author a new Gazebo laser plugin for this course.
 
@@ -103,7 +115,7 @@ ros2 bag record -o sense_lab /scan /imu/data /odom /tf /tf_static /clock
 - Vendor Limo sensor documentation (pin each term)
 - Forster et al., IMU preintegration — optional grad reading
 
-## Professor edit notes
+## Pedagogical defaults (resolved)
 
-- Paste actual topic graph from the adapted Limo sim once available.
-- Provide a small recorded bag in course storage (not git) for offline homework.
+- Stub topic graph documented above; vendor topics supersede when Gazebo assets land.
+- Homework bags live in course storage, never in git.

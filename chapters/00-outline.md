@@ -7,8 +7,9 @@ localization → mapping → navigation → Isaac Lab learning → sim-to-real �
 Orin Nano deploy → DGX Spark training → capstone.
 
 Physical AgileX Limo Pro appears only from mid/late course; early work is
-Docker + simulation. Narrative chapters `01`–`14` are full prose (not stubs);
-launch file names marked “when adapted” track the example-project track.
+Docker + simulation. Narrative chapters `01`–`14` are full prose.
+Course launches: `description`, `sim_diff_drive`, `localization`, `mapping`,
+`nav2` (plus `sim_stub` for smoke). Isaac Lab pin: **`v3.0.0`**.
 
 | Ch | File | Theme | Hardware |
 |----|------|-------|----------|

@@ -93,9 +93,20 @@ Primary references for the stack:
 
 Licensing: narrative is **CC BY-NC 4.0**; code and Docker are **Apache-2.0**. See the repo [`README.md`](../README.md).
 
-## 1.6 Lab 01 — First Docker shell
+## 1.6 Host OS matrix (Docker)
 
-**Prerequisites:** Docker Engine and Docker Compose v2 on Linux (or an equivalent setup that can build the course image). GPU is *not* required for this lab.
+| Host | Course support |
+|------|----------------|
+| **Linux (x86_64)** | **Required path** for graded labs — Docker Engine + Compose v2 |
+| **WSL2 (Ubuntu on Windows)** | **Supported with caveats** — install Docker Desktop or engine-in-WSL2; use the Ubuntu filesystem (`~/…`), not `/mnt/c/…`, for the clone; USB/robot later needs extra WSL USB setup |
+| macOS | Possible for early chapters only; not the graded path for Orin/Nav2 hardware weeks |
+| Native Windows (no WSL2) | **Not supported** |
+
+GPU is *not* required until Isaac Lab (Ch. 10). If WSL2 graphics or networking misbehaves, switch to a lab Linux machine rather than fighting Docker Desktop all semester.
+
+## 1.7 Lab 01 — First Docker shell
+
+**Prerequisites:** Docker Engine and Docker Compose v2 on Linux (or WSL2 per §1.6).
 
 ### Step A — Build the student image
 
@@ -105,7 +116,12 @@ From the repository root:
 docker compose -f docker/compose.yaml build
 ```
 
-This builds `physibot/ros2-humble:local` from [`docker/Dockerfile.ros2`](../docker/Dockerfile.ros2). The default build does **not** install the full Nav2 metapackage (`INSTALL_NAV2=0`) so the everyday image stays lean; later chapters document enabling Nav2 layers.
+This builds `physibot/ros2-humble:local` from [`docker/Dockerfile.ros2`](../docker/Dockerfile.ros2). The default `ros2` service keeps `INSTALL_NAV2=0` so the everyday image stays lean. From Chapters 07–09 onward, use the Compose profile that builds Nav2 into the image:
+
+```bash
+docker compose -f docker/compose.yaml --profile nav2 build ros2_nav2
+docker compose -f docker/compose.yaml --profile nav2 run --rm ros2_nav2 bash
+```
 
 ### Step B — Enter an interactive shell
 
@@ -124,12 +140,14 @@ source install/setup.bash
 ros2 pkg list | grep physibot
 ```
 
-You should see at least `physibot_bringup` and `physibot_description`.
+You should see `physibot_bringup`, `physibot_description`, and `physibot_sim`.
 
-### Step C — Launch the robot description
+### Step C — Launch the description / stub bringup
 
 ```bash
 ros2 launch physibot_bringup description.launch.py
+# thin stub (same package):
+ros2 launch physibot_bringup sim_stub.launch.py
 ```
 
 In a second shell attached to the same Compose network (or another `compose run`):
@@ -140,7 +158,7 @@ ros2 node list
 ros2 topic list
 ```
 
-This publishes `robot_description` via `robot_state_publisher` ([`description.launch.py`](../code/ros2_ws/src/physibot_bringup/launch/description.launch.py)). Later chapters add diff-drive sim (`sim_diff_drive.launch.py`) and Nav2 overlays. Read the launch log—it points at the course URDF under `physibot_description`. (`sim_stub.launch.py` is a thin alias that includes `sim_diff_drive`; prefer the canonical names in [`labs/README.md`](../labs/README.md).)
+`description.launch.py` loads the course Limo-class URDF ([`physibot_limo.urdf.xacro`](../code/ros2_ws/src/physibot_description/urdf/physibot_limo.urdf.xacro)) through `robot_state_publisher`. `sim_stub.launch.py` remains a thinner smoke path (prefer canonical names in [`labs/README.md`](../labs/README.md)). Chapter 03 adds `sim_diff_drive.launch.py` (odom + optional stub laser). Full Gazebo/vendor meshes land later via [`docs/adaptation-notes/limo.md`](../docs/adaptation-notes/limo.md)—early chapters do **not** require Isaac Sim.
 
 ### Optional smoke profile
 
@@ -150,22 +168,22 @@ docker compose -f docker/compose.yaml --profile smoke run --rm smoke
 
 This builds the workspace non-interactively and greps for `physibot` packages—the same idea as CI.
 
-## 1.7 How to study this course
+## 1.8 How to study this course
 
 - **Read with a terminal open.** Every early chapter ends in a container exercise.
 - **Keep a lab notebook** (Markdown is fine): commands that worked, parameter values, plots of error.
 - **Prefer upstream docs for APIs.** Course chapters teach *why* and *how we wire things*; Nav2 and Isaac Lab change faster than a textbook—follow their current pages for flags and YAML keys.
 - **Safety culture starts in sim.** Treat `cmd_vel` as dangerous even in Gazebo; later physical chapters formalize e-stop and supervised runs.
 
-## 1.8 Exercises
+## 1.9 Exercises
 
 1. Build and enter the `ros2` service. Screenshot or paste `echo $ROS_DISTRO`.
 2. After `colcon build`, list packages matching `physibot`.
-3. Run `description.launch.py` and identify which node provides TF / robot state.
+3. Run `description.launch.py` (or `sim_stub.launch.py`) and identify which node provides TF / robot state.
 4. Skim [`docs/adaptation-notes/README.md`](../docs/adaptation-notes/README.md) and write three sentences: what we adapt from Limo, Nav2, and Isaac Lab respectively.
 5. *(Grad stretch)* Compare Humble vs. Jazzy on the Isaac Sim ROS 2 page linked in `STATUS.md`. Argue in half a page why this course still pins Humble.
 
-## 1.9 Further reading
+## 1.10 Further reading
 
 - Course overview: [`README.md`](../README.md), outline: [`00-outline.md`](00-outline.md)
 - [Docker Compose overview](https://docs.docker.com/compose/)
@@ -176,8 +194,8 @@ This builds the workspace non-interactively and greps for `physibot` packages—
 
 **Runnable lab writeup:** [`labs/01-docker-hello/`](../labs/01-docker-hello/).
 
-## Professor edit notes
+## Pedagogical defaults (resolved)
 
-- Confirm lab Docker host OS matrix (Linux required vs. Windows/WSL2 supported).
-- Replace stub launch screenshots with cohort-specific terminal captures when available.
-- Decide whether Nav2 should be default-on in the student image by mid-term.
+- **Host OS:** Linux required for graded work; WSL2 supported with caveats (§1.6).
+- **Nav2 image:** keep base image lean (`INSTALL_NAV2=0`); use Compose profile `nav2` / `ros2_nav2` from Ch. 07 onward.
+- Cohort terminal screenshots remain optional cosmetics.

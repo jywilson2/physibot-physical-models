@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="420" viewBox="0 0 720 420" role="img" aria-label="PhysiBot REP-105 TF tree">
+  <title>PhysiBot TF tree (REP-105)</title>
+  <defs>
+    <marker id="arrow" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L6,3 L0,6 Z" fill="#334155"/>
+    </marker>
+    <style>
+      .box { fill:#f8fafc; stroke:#334155; stroke-width:2; }
+      .label { font-family: DejaVu Sans, Arial, sans-serif; font-size:14px; fill:#0f172a; text-anchor:middle; }
+      .note { font-family: DejaVu Sans, Arial, sans-serif; font-size:11px; fill:#475569; text-anchor:middle; }
+      .edge { stroke:#334155; stroke-width:2; fill:none; marker-end:url(#arrow); }
+    </style>
+  </defs>
+  <rect x="300" y="24" width="120" height="40" class="box" rx="4"/>
+  <text x="360" y="48" class="label">map</text>
+  <text x="360" y="78" class="note">localization may jump</text>
+
+  <path class="edge" d="M360 64 L360 100"/>
+  <rect x="300" y="104" width="120" height="40" class="box" rx="4"/>
+  <text x="360" y="128" class="label">odom</text>
+  <text x="360" y="158" class="note">continuous; drifts</text>
+
+  <path class="edge" d="M360 144 L360 180"/>
+  <rect x="270" y="184" width="180" height="40" class="box" rx="4"/>
+  <text x="360" y="208" class="label">base_footprint</text>
+
+  <path class="edge" d="M360 224 L360 260"/>
+  <rect x="285" y="264" width="150" height="40" class="box" rx="4"/>
+  <text x="360" y="288" class="label">base_link</text>
+
+  <path class="edge" d="M320 304 L180 340"/>
+  <path class="edge" d="M360 304 L360 340"/>
+  <path class="edge" d="M400 304 L540 340"/>
+
+  <rect x="100" y="344" width="160" height="40" class="box" rx="4"/>
+  <text x="180" y="368" class="label">laser_link</text>
+  <rect x="290" y="344" width="140" height="40" class="box" rx="4"/>
+  <text x="360" y="368" class="label">imu_link</text>
+  <rect x="470" y="344" width="160" height="40" class="box" rx="4"/>
+  <text x="550" y="368" class="label">camera_link</text>
+</svg>

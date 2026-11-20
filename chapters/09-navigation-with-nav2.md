@@ -29,6 +29,8 @@ Behavior Tree (navigate_to_pose, etc.)
    └─ Recovery behaviors (clear costmaps, spin, wait)
 ```
 
+![Nav2 BT sketch](../textbook/figures/nav2-bt-sketch.svg)
+
 **Costmaps** fuse static map layers with obstacle layers from laser (and optionally others). **Inflation** grows lethal obstacles so the footprint stays safe. Mis-tuned inflation is the most common “Nav2 is dumb” complaint—usually it’s your footprint.
 
 ## 9.3 Configuration map to Limo-class geometry
@@ -37,13 +39,18 @@ When adapting YAML into `physibot_bringup/config/`:
 
 | Knob | Guidance |
 |------|----------|
-| Footprint polygon | Match real Limo Pro dimensions (measure; don’t guess forever) |
-| `max_vel_x`, `max_vel_theta` | Conservative in sim first; raise after tracking looks clean |
+| Footprint / `robot_radius` | Published Limo Pro body 322×220 mm → ~0.20 m radius in course YAML |
+| `max_vel_x`, `max_vel_theta` | Cap at published \(v_{\max}=1.0\) m/s; start lower in sim |
 | Accel limits | Reflect Chapter 04 dynamics intuition |
 | Inflation radius | Slightly > half-width + margin |
-| Controller plugin | DWB or MPPI per Nav2 Humble defaults / Limo examples |
+| Controller plugin | **DWB** is the course teaching default; **MPPI** is the advanced alternative (see below) |
 
-Enable Nav2 in the student image when this chapter begins (`INSTALL_NAV2=1` build arg in [`docker/Dockerfile.ros2`](../docker/Dockerfile.ros2), or a dedicated Compose overlay)—document the chosen approach in STATUS when implemented.
+### Controller default: DWB (+ MPPI note)
+
+- **Default:** [DWB (Dynamic Window Approach)](https://docs.nav2.org/) local controller — transparent for teaching cost/critic tradeoffs on a slow differential base.
+- **Advanced / optional:** [MPPI](https://docs.nav2.org/) — sampling-based MPC-style controller; useful as a grad comparison or when DWB struggles in clutter. Not required for the base lab.
+
+Course YAML lives in [`nav2_params.yaml`](../code/ros2_ws/src/physibot_bringup/config/nav2_params.yaml). Enable Nav2 via Compose profile `nav2` (`INSTALL_NAV2=1` on `ros2_nav2`), not by bloating the everyday image.
 
 ## 9.4 Behavior trees without fear
 
@@ -54,10 +61,13 @@ You do not need to author XML on day one. Understand that the BT **sequences** p
 Prerequisites: map from Chapter 08 (or instructor map); localization working.
 
 ```bash
+# Nav2-enabled image
 source /ws/install/setup.bash
 ros2 launch physibot_bringup nav2.launch.py
 # RViz: set initial pose, then Nav2 Goal
 ```
+
+Cross-link: [`labs/09-nav2/`](../labs/09-nav2/).
 
 ### Success criteria
 
@@ -94,8 +104,8 @@ After a successful run, write half a page: where did a **kinematic** assumption 
 
 **Runnable lab writeup:** [`labs/09-nav2/`](../labs/09-nav2/).
 
-## Professor edit notes
+## Pedagogical defaults (resolved)
 
-- Lock footprint numbers from measured Limo Pro units.
-- Choose DWB vs. MPPI as the default teaching controller for the term.
-- Confirm INSTALL_NAV2 story for student Docker builds.
+- Launch: `nav2.launch.py`. Footprint from published Limo Pro dimensions.
+- Controller: **DWB default**; MPPI optional comparison.
+- Docker: Compose profile `nav2` / `INSTALL_NAV2=1` (base image stays lean).

@@ -57,11 +57,14 @@ Do not commit huge binary maps to git if they are regenerable; small classroom m
 ## 8.6 Lab 08 — Map a sim world
 
 ```bash
+# Nav2-enabled image (Compose profile nav2)
 source /ws/install/setup.bash
 ros2 launch physibot_bringup mapping.launch.py
-# Teleop a full loop of the teaching world
+# Teleop a full loop of the teaching world (sim_diff_drive in another shell)
 ros2 run nav2_map_server map_saver_cli -f /ws/maps/classroom_world
 ```
+
+Cross-link: [`labs/08-mapping/`](../labs/08-mapping/).
 
 (Exact package names follow Nav2 Humble docs—verify if CLIs change.)
 
@@ -89,7 +92,8 @@ Then restart Chapter 07 localization using **your** map.
 
 **Runnable lab writeup:** [`labs/08-mapping/`](../labs/08-mapping/).
 
-## Professor edit notes
+## Pedagogical defaults (resolved)
 
-- Pin slam_toolbox version compatible with Humble image.
-- Provide a “known good” map for students who fail the mapping lab so Nav2 week is not blocked.
+- Launch name: `mapping.launch.py` (slam_toolbox params in `config/slam_toolbox_params.yaml`).
+- slam_toolbox comes from Humble apt via `INSTALL_NAV2=1` / Compose profile `nav2`.
+- Fallback map for blocked students: `maps/demo_map.yaml`.
