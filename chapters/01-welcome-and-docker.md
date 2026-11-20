@@ -17,13 +17,16 @@
 3. Stack overview: ROS 2 Humble, Isaac Lab, Nav2 (adapted examples).
 4. First lab: `docker compose` build/run; `colcon` smoke build.
 
-## Student exercises (stubs)
+## Student exercises
+
+Follow **`labs/01-docker-hello/`** (runnable). Summary:
 
 - [ ] Build and enter the `ros2` service.
 - [ ] Confirm `echo $ROS_DISTRO` prints `humble`.
-- [ ] Run the bringup stub launch and list topics.
+- [ ] Run `ros2 launch physibot_bringup description.launch.py` and list topics.
 
 ## Pointers
 
+- Lab: `labs/01-docker-hello/`
 - Repo root `README.md`, `docker/compose.yaml`
 - Adaptation notes: `docs/adaptation-notes/`

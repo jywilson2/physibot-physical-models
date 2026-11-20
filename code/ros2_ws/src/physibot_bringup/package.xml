@@ -3,19 +3,28 @@
 <package format="3">
   <name>physibot_bringup</name>
   <version>0.1.0</version>
-  <description>PhysiBot bringup launch overlays (adapt Limo / Nav2 examples — scaffold).</description>
+  <description>PhysiBot bringup launch overlays — progressive Limo / Nav2 labs (Apache-2.0).</description>
   <maintainer email="jywilson@ieee.org">PhysiBot contributors</maintainer>
   <license>Apache-2.0</license>
 
   <buildtool_depend>ament_cmake</buildtool_depend>
 
   <exec_depend>physibot_description</exec_depend>
+  <exec_depend>physibot_sim</exec_depend>
   <exec_depend>robot_state_publisher</exec_depend>
+  <exec_depend>joint_state_publisher</exec_depend>
   <exec_depend>xacro</exec_depend>
   <exec_depend>tf2_ros</exec_depend>
   <exec_depend>launch</exec_depend>
   <exec_depend>launch_ros</exec_depend>
   <exec_depend>ament_index_python</exec_depend>
+
+  <!-- Nav2 / SLAM used by labs 07–09; optional in base image -->
+  <exec_depend>nav2_bringup</exec_depend>
+  <exec_depend>nav2_amcl</exec_depend>
+  <exec_depend>nav2_map_server</exec_depend>
+  <exec_depend>nav2_lifecycle_manager</exec_depend>
+  <exec_depend>slam_toolbox</exec_depend>
 
   <export>
     <build_type>ament_cmake</build_type>

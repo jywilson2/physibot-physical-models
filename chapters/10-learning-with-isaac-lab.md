@@ -20,6 +20,10 @@
 
 - ROS 2 Humble via Isaac Lab `Dockerfile.ros2` — see `STATUS.md`.
 
+## Lab
+
+- Stub / docs: `labs/10-isaac-lab/` (attach course workspace to NVIDIA Lab `ros2` profile when pinned)
+
 ## Adaptation notes
 
 - `docs/adaptation-notes/isaac-lab.md`

@@ -1,6 +1,6 @@
 # PhysiBot — STATUS
 
-**Phase:** PMT-2 scaffold only (structure + outline + Docker skeleton).  
+**Phase:** PMT-4 progressive Limo Pro labs (sim-first Docker ladder).  
 **Last updated:** 2026-11-20  
 **Default branch (intended):** `main`
 
@@ -10,16 +10,26 @@
 - [x] ROS 2 distro pin documented with NVIDIA evidence (**Humble**)
 - [x] Local git `main` committed and pushed to GitHub
 - [x] GitHub repo live: https://github.com/jywilson2/physibot-physical-models (public)
-- [x] `origin` remote configured to that URL
-- [x] First push of `main` complete — https://github.com/jywilson2/physibot-physical-models (`ea91e694f36be2a1e42efcc0aa61f163488938f9`)
-- [ ] Full textbook narrative written (chapters are stubs)
+- [x] Progressive labs ladder under `labs/` (01, 03, 04, 07, 08, 09, 10 stub, 12 stub)
+- [x] Course packages: `physibot_description`, `physibot_sim`, `physibot_bringup` (sim + Nav2 launches)
+- [x] Host unit tests for diff-drive kinematics + layout smoke in CI
+- [ ] Full textbook narrative written (chapters are stubs — narrative workers)
 - [ ] PDF / DOCX export pipeline verified end-to-end
-- [ ] Limo / Nav2 / Isaac example adaptations filled in (placeholders only)
-- [ ] Student smoke tests green in CI on a real runner
+- [ ] Upstream `limo_ros2` meshes/drivers vendored or git-submodule at frozen SHA
+- [ ] Docker Compose image build + `colcon` smoke green in CI (runner must pull `ros:humble`)
 - [ ] Orin Nano deploy chapter runnable against lab hardware
 - [ ] DGX Spark training workflow validated in lab
 - [ ] Capstone brief + rubrics finalized
 - [ ] Professor edit pass on narrative + code
+
+## Code-side edit needs (professor / narrative coordination)
+
+1. **Chapters ↔ labs** — chapter stubs still say “exercises (stubs)”; point students at `labs/NN-*` once narrative expands (do not rewrite chapters wholesale in code PRs).
+2. **Gazebo / Isaac assets** — replace `physibot_sim` stub laser with adapted Limo Gazebo or Isaac sensors before claiming realistic SLAM.
+3. **Nav2 params** — `nav2_params.yaml` is a teaching overlay; diff against AgileX Nav2 examples when SHA is frozen.
+4. **Licensing of vendor meshes** — keep geometric stubs until mesh license review is done.
+5. **Isaac Lab attach steps** — fill `labs/10-isaac-lab/` when Lab release tag is pinned.
+6. **Orin runbook** — lab hostnames / `ROS_DOMAIN_ID` conventions belong in private lab docs, not git secrets.
 
 ## ROS 2 / Isaac Lab decision
 
@@ -45,15 +55,31 @@
 3. Note any Isaac Lab ROS2 image known issues in release notes.
 4. Update this section + README table in the same PR.
 
-## Remaining work (post-scaffold)
+## Upstream adaptation pins
 
-1. **Narrative** — expand `chapters/` stubs into full textbook prose; wire Quarto/Pandoc for PDF+DOCX.
-3. **Examples** — adapt AgileX Limo ROS 2, Nav2, and Isaac Lab demos per `docs/adaptation-notes/`.
-4. **CI** — flesh out smoke workflow beyond stubs once images publish.
-5. **Hardware labs** — Orin Nano + DGX Spark runbooks with lab-specific hostnames/secrets out of git.
+| Component | Pin |
+|-----------|-----|
+| AgileX `limo_ros2` | https://github.com/agilexrobotics/limo_ros2 branch **`humble`** (SHA TBD) |
+| Nav2 | ROS 2 Humble apt (`ros-humble-navigation2`, `ros-humble-nav2-bringup`) |
+| slam_toolbox | `ros-humble-slam-toolbox` in Nav2 Compose profile |
 
-## Out of scope for PMT-2
+## How to run (code labs)
 
-- Full chapter prose and figures
-- Production-ready robot stacks written from scratch
-- Assuming students own DGX Sparks
+```bash
+bash tests/smoke/test_repo_layout.sh
+python3 -m pytest tests/unit/test_diff_drive_kinematics.py -q
+
+docker compose -f docker/compose.yaml build ros2
+docker compose -f docker/compose.yaml run --rm ros2 bash
+# inside: colcon build --symlink-install && source install/setup.bash
+#         ros2 launch physibot_bringup sim_diff_drive.launch.py
+
+docker compose -f docker/compose.yaml --profile nav2 build ros2_nav2
+```
+
+## Remaining work
+
+1. **Narrative** — expand `chapters/` stubs; wire Quarto/Pandoc for PDF+DOCX.
+2. **Examples** — freeze `limo_ros2` SHA; swap stub laser for Gazebo/Isaac when ready.
+3. **CI** — enable Docker smoke job when runners pull `ros:humble` reliably.
+4. **Hardware labs** — Orin Nano + DGX Spark runbooks (secrets out of git).

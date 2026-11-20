@@ -20,7 +20,9 @@
 
 - Prefer existing AgileX Limo ROS 2 description/bringup packages — see `docs/adaptation-notes/limo.md`.
 
-## Student exercises (stubs)
+## Student exercises
 
-- [ ] Plot open-loop circle vs. square path under unicycle model.
-- [ ] Identify frames: `base_link`, `odom`, sensor frames.
+Follow **`labs/03-kinematics-teleop/`**. Summary:
+
+- [ ] Plot open-loop circle vs. square path under unicycle model (`sim_diff_drive.launch.py`).
+- [ ] Identify frames: `base_footprint` / `base_link`, `odom`, sensor frames.

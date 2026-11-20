@@ -27,3 +27,5 @@ Docker + simulation.
 | 14 | `14-capstone.md` | Integrated project | Lab as assigned |
 
 ROS 2 distro for all student containers: **Humble** (Isaac Lab–aligned). See `STATUS.md`.
+
+Runnable labs (sim-first): `labs/` — start at `labs/README.md`.

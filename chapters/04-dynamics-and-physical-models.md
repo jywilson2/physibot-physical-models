@@ -16,6 +16,11 @@
 4. Bridge to Isaac Lab: training with physics engines as the world model.
 5. Lab stub: parameter sweep in sim; observe tracking error growth.
 
+## Lab
+
+- Runnable writeup: `labs/04-odometry-models/` (noise / drift on course odom model).
+- Unit tests: `tests/unit/test_diff_drive_kinematics.py`
+
 ## Pointers
 
 - Isaac Lab chapters later expand learning; keep this chapter conceptual + light code.

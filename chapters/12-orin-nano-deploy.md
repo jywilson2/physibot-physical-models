@@ -16,6 +16,10 @@
 4. Supervised lab: teleop → localization → short Nav2 goal.
 5. Logging and post-run analysis.
 
+## Lab
+
+- Stub / docs: `labs/12-orin-deploy/`
+
 ## Adaptation notes
 
 - Vendor Limo + Orin docs; do not invent board support — `docs/adaptation-notes/limo.md`.
