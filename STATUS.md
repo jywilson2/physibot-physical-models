@@ -4,7 +4,8 @@
 **Last updated:** 2026-11-20  
 **Default branch:** `main`  
 
-**Landed:** PR #1 (progressive labs), PR #2 (full textbook narrative), PR #3 (review packaging), PR #4 (labs STATUS), PR #5 (narrative STATUS).
+**Landed:** PR #1 (progressive labs), PR #2 (full textbook narrative), PR #3 (review packaging), PR #4 (labs STATUS), PR #5 (narrative STATUS).  
+**Export refresh:** Regenerated `textbook/exports/physibot.pdf` (~295 KB, 46 pp, figures embedded) from `main` after PR #4/#5 via `./docs/export-tools/export-stub.sh` (DOCX regenerated locally; gitignored).
 
 ---
 
@@ -49,7 +50,7 @@ Unit test `tests/unit/test_hardware_constants.py` fails if URDF / sim defaults d
 | Artifact | Status | Path / command |
 |----------|--------|----------------|
 | **DOCX** | Verified (Pandoc) | `./docs/export-tools/export-stub.sh` → `textbook/exports/physibot.docx` (gitignored) |
-| **PDF** | **Verified on packaging agent** (Pandoc + XeLaTeX + DejaVu) | Sample: [`textbook/exports/physibot.pdf`](textbook/exports/physibot.pdf) (~240 KB, ~42 pp, CC BY-NC 4.0) |
+| **PDF** | **Verified** (Pandoc + XeLaTeX + DejaVu; post–PR #4/#5 refresh) | Sample: [`textbook/exports/physibot.pdf`](textbook/exports/physibot.pdf) (~295 KB, 46 pp, CC BY-NC 4.0) |
 | Quarto | Preferred when installed; not required for sample | `quarto render textbook/physibot.qmd --to pdf --output-dir textbook/exports` |
 | **Docker PDF** (no host TeX) | Recipe committed | `./docs/export-tools/export-pdf-docker.sh` → builds `docker/Dockerfile.textbook` |
 
