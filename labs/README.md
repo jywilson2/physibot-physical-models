@@ -1,7 +1,7 @@
 # PhysiBot labs — progressive Limo Pro ladder
 
 Sim-first labs that grow with the textbook. Each lab has a README tied to a
-chapter number. Run everything through Docker Compose (`docker/`).
+chapter number. Run everyday ROS work through Docker Compose (`docker/`).
 
 | Lab | Chapter | Theme | What runs |
 |-----|---------|-------|-----------|
@@ -11,8 +11,24 @@ chapter number. Run everything through Docker Compose (`docker/`).
 | [`07-localization`](07-localization/) | 07 | Localization (AMCL) | `localization.launch.py` (Nav2 image) |
 | [`08-mapping`](08-mapping/) | 08 | Mapping / SLAM | `mapping.launch.py` (Nav2 image) |
 | [`09-nav2`](09-nav2/) | 09 | Nav2 navigation | `nav2.launch.py` (Nav2 image) |
-| [`10-isaac-lab`](10-isaac-lab/) | 10 | Isaac Lab | docs / stubs |
-| [`12-orin-deploy`](12-orin-deploy/) | 12 | Orin Nano deploy | docs / stubs |
+| [`10-isaac-lab`](10-isaac-lab/) | 10 | Isaac Lab | docs-first procedure (DGX Spark; pin `v2.3.2`) |
+| [`12-orin-deploy`](12-orin-deploy/) | 12 | Orin Nano deploy | docs-first procedure (physical Limo + Orin) |
+
+## Canonical launch names (`physibot_bringup`)
+
+Use these names in chapters and lab sheets (do **not** invent `*_sim.launch.py` aliases):
+
+| Launch | Package |
+|--------|---------|
+| `description.launch.py` | `physibot_bringup` |
+| `sim_diff_drive.launch.py` | `physibot_bringup` |
+| `localization.launch.py` | `physibot_bringup` |
+| `mapping.launch.py` | `physibot_bringup` |
+| `nav2.launch.py` | `physibot_bringup` |
+
+Supporting packages: `physibot_description` (URDF), `physibot_sim` (odom / stub laser).
+
+`sim_stub.launch.py` remains as a thin alias that includes `sim_diff_drive` for older notes — prefer `sim_diff_drive` / `description` in new prose.
 
 ## Quick path
 
@@ -33,8 +49,23 @@ docker compose -f docker/compose.yaml --profile nav2 build ros2_nav2
 docker compose -f docker/compose.yaml --profile nav2 run --rm ros2_nav2 bash
 ```
 
+Optional Compose smoke (requires Docker daemon + ability to pull `ros:humble`):
+
+```bash
+docker compose -f docker/compose.yaml build ros2
+docker compose -f docker/compose.yaml --profile smoke run --rm smoke
+```
+
+Host-only checks (no Docker; what CI runs today):
+
+```bash
+bash tests/smoke/test_repo_layout.sh
+python3 -m pytest tests/unit tests/integration -q
+```
+
 ## Design rules
 
-- Prefer adapting [agilexrobotics/limo_ros2](https://github.com/agilexrobotics/limo_ros2) (`humble` branch), Nav2 tutorials, and Isaac Lab over greenfield stacks.
+- Prefer adapting [agilexrobotics/limo_ros2](https://github.com/agilexrobotics/limo_ros2) (`humble` @ `dcc5a8637f83236ed6778af86ad826e46a20cd92`), Nav2 tutorials, and Isaac Lab over greenfield stacks.
 - Early labs need **no GPU** and **no physical robot**.
 - Course packages are thin overlays; see `docs/adaptation-notes/`.
+- DGX Spark = training / Isaac; Orin Nano = on-robot deploy (Labs 10 vs 12).

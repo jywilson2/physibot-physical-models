@@ -42,7 +42,7 @@ scripts/           Local helper scripts
 
 ## Progressive labs
 
-See [`labs/README.md`](labs/README.md) for the full ladder (description → teleop/odom → localization → mapping → Nav2 → Isaac/Orin stubs).
+See [`labs/README.md`](labs/README.md) for the full ladder (description → teleop/odom → localization → mapping → Nav2 → Isaac Lab / Orin deploy docs).
 
 ## Quick start (students)
 

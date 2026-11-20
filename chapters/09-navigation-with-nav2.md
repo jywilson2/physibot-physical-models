@@ -55,7 +55,7 @@ Prerequisites: map from Chapter 08 (or instructor map); localization working.
 
 ```bash
 source /ws/install/setup.bash
-ros2 launch physibot_bringup nav2_sim.launch.py     # name when adapted
+ros2 launch physibot_bringup nav2.launch.py
 # RViz: set initial pose, then Nav2 Goal
 ```
 

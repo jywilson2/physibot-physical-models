@@ -27,7 +27,13 @@ jobs:
       - name: Unit + integration tests (host, no ROS)
         run: python -m pytest tests/unit tests/integration -q
 
-  # Docker image build is optional until registry/cache strategy is set.
+  # --- Docker Compose smoke (optional) ---
+  # Cloud agents / some runners have no Docker daemon or cannot pull ros:humble.
+  # Students and CI with Docker should run locally:
+  #   docker compose -f docker/compose.yaml build ros2
+  #   docker compose -f docker/compose.yaml --profile smoke run --rm smoke
+  #   docker compose -f docker/compose.yaml --profile nav2 build ros2_nav2
+  # Host layout + pytest (jobs above) remain the required green path.
   # Uncomment when runners can pull ros:humble images reliably:
   # ros2-image:
   #   runs-on: ubuntu-22.04

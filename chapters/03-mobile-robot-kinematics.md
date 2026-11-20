@@ -110,11 +110,16 @@ Vendor description packages remain the source of truth for meshes, wheel paramet
 
 ## 3.7 Lab 03 — Open-loop `cmd_vel` in simulation
 
-### Until full Gazebo/Limo bringup lands
+### Course diff-drive sim (Lab 03)
 
 1. Enter the container and build as in Chapter 01.
-2. Launch `ros2 launch physibot_bringup sim_stub.launch.py`.
-3. In a second shell, manually publish twists:
+2. Launch the canonical sim bringup:
+
+```bash
+ros2 launch physibot_bringup sim_diff_drive.launch.py
+```
+
+3. In a second shell, manually publish twists (or use teleop):
 
 ```bash
 source /ws/install/setup.bash
@@ -122,14 +127,11 @@ ros2 topic pub --once /cmd_vel geometry_msgs/msg/Twist \
   "{linear: {x: 0.2, y: 0.0, z: 0.0}, angular: {x: 0.0, y: 0.0, z: 0.3}}"
 ```
 
-With only the stub, you will **not** yet see a full Gazebo robot move—the stub’s job is to prove the workspace and TF publisher path. As soon as the adapted Limo + Gazebo launch is merged into `physibot_bringup` (see adaptation notes), repeat this lab with:
-
 ```bash
-ros2 launch physibot_bringup sim_limo.launch.py   # name TBD when adapted
 ros2 run teleop_twist_keyboard teleop_twist_keyboard
 ```
 
-and visualize in RViz: add TF, LaserScan, and Odometry displays.
+This starts description + `physibot_sim` odometry (and optional stub laser)—enough for TF / `/odom` / `/cmd_vel` without Gazebo. When vendor Gazebo assets are licensed in, keep the same launch **name** and swap internals (see adaptation notes). Visualize in RViz: TF, LaserScan, and Odometry.
 
 ### Offline unicycle plotting (required even with stub)
 
@@ -159,5 +161,5 @@ Compare path length and final pose error if you add 5% scale bias on \(v\).
 
 ## Professor edit notes
 
-- Replace stub lab with concrete `sim_limo.launch.py` name and package pins when Limo adaptation lands.
+- Keep launch name `sim_diff_drive.launch.py`; swap stub meshes/sensors for licensed Limo Gazebo assets when ready.
 - Insert measured Limo Pro \(b\), \(r\), and max \(v,\omega\) from the physical fleet.
