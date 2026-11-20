@@ -11,7 +11,7 @@
 - [x] Local git `main` committed and pushed to GitHub
 - [x] GitHub repo live: https://github.com/jywilson2/physibot-physical-models (public)
 - [x] `origin` remote configured to that URL
-- [x] First push of `main` complete — https://github.com/jywilson2/physibot-physical-models
+- [x] First push of `main` complete — https://github.com/jywilson2/physibot-physical-models (`ea91e694f36be2a1e42efcc0aa61f163488938f9`)
 - [ ] Full textbook narrative written (chapters are stubs)
 - [ ] PDF / DOCX export pipeline verified end-to-end
 - [ ] Limo / Nav2 / Isaac example adaptations filled in (placeholders only)
