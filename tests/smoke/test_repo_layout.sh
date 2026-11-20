@@ -38,6 +38,12 @@ required=(
   docs/adaptation-notes/limo.md
   docs/adaptation-notes/nav2.md
   tests/unit/test_diff_drive_kinematics.py
+  tests/unit/test_hardware_constants.py
+  tests/integration/test_launch_and_packages.py
+  tests/integration/test_export_sources.py
+  docs/export-tools/export-stub.sh
+  docs/export-tools/export-pdf-docker.sh
+  docker/Dockerfile.textbook
 )
 missing=0
 for rel in "${required[@]}"; do

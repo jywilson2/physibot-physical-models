@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 # PhysiBot textbook export helper — Pandoc fallback when Quarto is unavailable.
+# Requires: pandoc. PDF also needs xelatex/lualatex/pdflatex (+ TeX Live fonts).
+# Reproducible alternative: ./docs/export-tools/export-pdf-docker.sh
 set -euo pipefail
 ROOT="$(cd "$(dirname "$0")/../.." && pwd)"
 OUT="${ROOT}/textbook/exports"
@@ -24,17 +26,22 @@ CHAPTERS=(
   "${ROOT}/chapters/14-capstone.md"
 )
 
+# Chapters use \(...\) / \[...\] math; enable those extensions explicitly.
+PANDOC_FROM="markdown+tex_math_single_backslash+tex_math_dollars+raw_tex"
+TITLE="PhysiBot: AI Physical Models for Mobile Robotics"
+
 if ! command -v pandoc >/dev/null 2>&1; then
-  echo "pandoc not found. Install pandoc (and TeX for PDF), or use Quarto:" >&2
+  echo "pandoc not found. Install pandoc (and TeX for PDF), use Quarto, or Docker:" >&2
+  echo "  ./docs/export-tools/export-pdf-docker.sh" >&2
   echo "  quarto render textbook/physibot.qmd --to docx --output-dir textbook/exports" >&2
   exit 1
 fi
 
 echo "Exporting DOCX via pandoc..."
 pandoc \
-  --from markdown \
+  --from "${PANDOC_FROM}" \
   --toc \
-  --metadata title="PhysiBot: AI Physical Models for Mobile Robotics" \
+  --metadata title="${TITLE}" \
   "${CHAPTERS[@]}" \
   -o "${OUT}/physibot.docx"
 echo "Wrote ${OUT}/physibot.docx"
@@ -49,15 +56,25 @@ done
 
 if [[ -n "${PDF_ENGINE}" ]]; then
   echo "Exporting PDF via pandoc (${PDF_ENGINE})..."
-  pandoc \
-    --from markdown \
-    --toc \
-    --pdf-engine="${PDF_ENGINE}" \
-    --metadata title="PhysiBot: AI Physical Models for Mobile Robotics" \
-    "${CHAPTERS[@]}" \
-    -o "${OUT}/physibot.pdf"
+  PDF_ARGS=(
+    --from "${PANDOC_FROM}"
+    --toc
+    --pdf-engine="${PDF_ENGINE}"
+    -V geometry:margin=1in
+    --metadata title="${TITLE}"
+  )
+  # Prefer Unicode-capable fonts when present (box-drawing / Greek in chapters).
+  # Avoid `fc-list | grep -q` under pipefail (SIGPIPE makes the test fail).
+  if grep -qi "DejaVu Serif" < <(fc-list 2>/dev/null || true); then
+    PDF_ARGS+=(-V mainfont="DejaVu Serif" -V monofont="DejaVu Sans Mono")
+  fi
+  if grep -qi "DejaVu Math TeX Gyre" < <(fc-list 2>/dev/null || true); then
+    PDF_ARGS+=(-V mathfont="DejaVu Math TeX Gyre")
+  fi
+  pandoc "${PDF_ARGS[@]}" "${CHAPTERS[@]}" -o "${OUT}/physibot.pdf"
   echo "Wrote ${OUT}/physibot.pdf"
 else
   echo "No LaTeX engine (xelatex/lualatex/pdflatex) found; skipping PDF." >&2
-  echo "DOCX export succeeded. Install TeX Live or Quarto for PDF." >&2
+  echo "DOCX export succeeded. Install TeX Live, Quarto, or run:" >&2
+  echo "  ./docs/export-tools/export-pdf-docker.sh" >&2
 fi

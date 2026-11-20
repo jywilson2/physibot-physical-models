@@ -32,11 +32,11 @@ Decision details and refresh checklist live in [`STATUS.md`](STATUS.md).
 ```
 chapters/          Full-course textbook narrative (Ch. 01–14)
 labs/              Progressive runnable labs (tied to chapter numbers)
-textbook/          Quarto book + export config (PDF/DOCX)
-docs/              Adaptation notes, build helpers
+textbook/          Quarto book + exports (sample PDF under exports/)
+docs/              Adaptation notes, PDF/DOCX export helpers
 code/ros2_ws/      ROS 2 workspace (description, sim, bringup)
-docker/            Dockerfiles + Compose for student workflow
-tests/             Host smoke + unit tests
+docker/            Student ROS 2 image + textbook TeX export image
+tests/             Host smoke + unit + integration tests
 scripts/           Local helper scripts
 ```
 
@@ -70,11 +70,19 @@ docker compose -f docker/compose.yaml --profile nav2 build ros2_nav2
 docker compose -f docker/compose.yaml --profile nav2 run --rm ros2_nav2 bash
 ```
 
-Host unit tests (no Docker):
+Host tests (no Docker / no ROS):
 
 ```bash
-python3 -m pytest tests/unit/test_diff_drive_kinematics.py -q
 bash tests/smoke/test_repo_layout.sh
+python3 -m pytest tests/unit tests/integration -q
+```
+
+Textbook PDF / DOCX:
+
+```bash
+./docs/export-tools/export-stub.sh          # host pandoc + TeX
+./docs/export-tools/export-pdf-docker.sh    # no host TeX (needs Docker)
+# Sample PDF: textbook/exports/physibot.pdf
 ```
 
 Physical Limo Pro + Orin Nano workflows appear only in later chapters — early work stays in simulation.
@@ -96,11 +104,11 @@ DGX Sparks are instructor/lab backends — students are not assumed to own them.
 
 ## Textbook
 
-Chapter sources: [`chapters/`](chapters/). Build PDF/DOCX from [`textbook/`](textbook/) (Quarto preferred; Pandoc fallback — see [`textbook/README.md`](textbook/README.md)).
+Chapter sources: [`chapters/`](chapters/). Build PDF/DOCX from [`textbook/`](textbook/) (Quarto preferred; Pandoc / Docker TeX — see [`docs/export-tools/README.md`](docs/export-tools/README.md)).
 
 ## Status & review
 
-Full-course narrative drafted in `chapters/` (PMT-3); progressive labs ladder under `labs/` (PMT-4). Example adaptations and verified PDF exports remain open — see [`STATUS.md`](STATUS.md) for the review checklist and professor edit list.
+Full-course narrative + progressive labs are on `main`. Professor review checklist, hardware numbers, and PDF/DOCX status: [`STATUS.md`](STATUS.md).
 
 ## Brand
 

@@ -9,8 +9,11 @@
 # Exports / local
 textbook/exports/*
 !textbook/exports/.gitkeep
+# Sample review PDF (CC BY-NC 4.0) — regenerate via docs/export-tools/
+!textbook/exports/physibot.pdf
 *.pdf
 !docs/**/*.pdf
+!textbook/exports/physibot.pdf
 
 # IDE / OS
 .DS_Store
