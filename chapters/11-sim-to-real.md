@@ -44,13 +44,14 @@ If the Orin Nano cannot sustain your sim CPU rate, simplify observation pipeline
 
 ## 11.4 Safety envelope for first physical tests
 
-Non-negotiables (adapt to local lab rules):
+Non-negotiables (lab-local details fill in Ch. 12; these principles are fixed):
 
-1. Supervised operation with a clear e-stop owner.
-2. Soft velocity caps far below mechanical limits.
+1. **E-stop owner** named before power-up; verbal “stop” protocol rehearsed.
+2. Soft velocity caps far below mechanical limits (published \(v_{\max}=1.0\) m/s is a hard ceiling, not a target).
 3. Open space free of cables that wind into wheels.
 4. No unsupervised “just one Nav2 goal” overnight runs.
 5. Logging enabled before motion.
+6. **`ROS_DOMAIN_ID`** set and verified so you do not command a neighbor’s robot on shared Wi-Fi (see Ch. 12).
 
 Sim practice: rehearse the same recovery behaviors and teleop takeover you will use on hardware.
 
@@ -92,7 +93,6 @@ Optional sim stress: add noise to `/scan` ranges and latency to `/cmd_vel` using
 - Vendor Limo + Orin bringup safety notes
 - Course Chapters 04, 05, 10 as prerequisites
 
-## Professor edit notes
+## Pedagogical defaults (resolved)
 
-- Insert lab-specific e-stop and arena rules.
-- Provide the official go/no-go form students must print for Ch. 12.
+- Safety principles above are course-wide; SSID / domain-ID tables and printed go/no-go forms stay lab-local (LMS), not in public git.

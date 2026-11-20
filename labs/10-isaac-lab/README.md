@@ -20,17 +20,17 @@ Sparks are shared backend compute (Ch. 13). Students are not assumed to own one.
 
 | Field | Value |
 |-------|-------|
-| Isaac Lab tag | **`v2.3.2`** |
-| Commit | `37ddf626871758333d6ed89cf64ad702aef127d0` |
+| Isaac Lab tag | **`v3.0.0`** (GA) |
+| Permalink | https://github.com/isaac-sim/IsaacLab/releases/tag/v3.0.0 |
 | ROS 2 via Lab | Humble (`ros2` Docker profile / `Dockerfile.ros2`) |
 | Course ROS image | `docker/compose.yaml` — separate from Isaac containers |
 
-Newer tags (e.g. `v3.0.0`) may exist; stick to the pin above unless the instructor updates `STATUS.md` and this README.
+Stick to the pin above unless the instructor updates `STATUS.md` and this README.
 
 Upstream:
 
-- [Isaac Lab installation](https://docs.nvidia.com/isaaclab/isaac-lab/installation)
-- [Isaac Lab Docker guide](https://isaac-sim.github.io/IsaacLab/main/source/deployment/docker.html)
+- [Isaac Lab v3.0.0 installation](https://isaac-sim.github.io/IsaacLab/v3.0.0/source/isaaclab/installation.html)
+- [Isaac Lab release](https://github.com/isaac-sim/IsaacLab/releases/tag/v3.0.0)
 - Course notes: [`docs/adaptation-notes/isaac-lab.md`](../../docs/adaptation-notes/isaac-lab.md)
 
 ## Goals
@@ -55,7 +55,7 @@ Upstream:
 # On DGX Spark (or approved GPU host) — paths are examples; follow local lab conventions
 git clone https://github.com/isaac-sim/IsaacLab.git
 cd IsaacLab
-git checkout v2.3.2
+git checkout v3.0.0
 ```
 
 ### 2. Build / start the `ros2` profile
@@ -63,7 +63,7 @@ git checkout v2.3.2
 Follow the upstream Docker guide for your pin. Typical pattern:
 
 ```bash
-# From Isaac Lab repo — exact flags follow upstream docs for v2.3.2
+# From Isaac Lab repo — exact flags follow upstream docs for v3.0.0
 ./docker/container.py start ros2
 ./docker/container.py enter ros2
 ```
@@ -99,7 +99,7 @@ Inside the Lab container you can `source` a separately built course overlay **on
 Prefer an official locomotion / wheeled demo from the pinned Isaac Lab tree (names change by release). Pattern:
 
 ```bash
-# Inside Isaac Lab ros2 container — replace with the demo path documented for v2.3.2
+# Inside Isaac Lab ros2 container — replace with the demo path documented for v3.0.0
 # Example shape only:
 python scripts/reinforcement_learning/rsl_rl/train.py --task=<WheeledOrLocomotionTask> --headless
 ```
@@ -117,7 +117,7 @@ Write down (notebook / lab sheet — not secrets):
 ## Checkpoints
 
 - [ ] `ROS_DISTRO=humble` inside the Lab `ros2` container
-- [ ] Course pin `v2.3.2` checked out (or instructor-updated pin)
+- [ ] Course pin `v3.0.0` checked out (or instructor-updated pin)
 - [ ] One upstream example ran (train smoke or play)
 - [ ] Notes on Spark vs Orin roles (train on Spark; deploy on Orin in Lab 12)
 - [ ] No Wi-Fi passwords / hostnames committed to git
@@ -133,5 +133,5 @@ Write down (notebook / lab sheet — not secrets):
 ## Open items (instructor)
 
 - [ ] Confirm GPU driver matrix on lab Sparks each term
-- [ ] Optionally bump pin from `v2.3.2` → newer after smoke on Sparks
+- [ ] Optionally bump pin from `v3.0.0` → newer after smoke on Sparks
 - [ ] Choose the exact upstream task ID printed in the term handout

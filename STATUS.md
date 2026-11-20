@@ -1,10 +1,10 @@
 # PhysiBot — STATUS (professor review handoff)
 
-**Phase:** PMT-6 labs/code STATUS polish (SHA freeze, Isaac/Orin docs labs, Nav2 comment diff).  
+**Phase:** PMT-6 STATUS polish — narrative + labs checklists resolved (union after PR #4 + #5).  
 **Last updated:** 2026-11-20  
 **Default branch:** `main`  
 
-**Landed:** PR #1 (progressive labs), PR #2 (full textbook narrative), PR #3 (review packaging). Labs checklist items below closed in the labs STATUS PR (PMT-6).
+**Landed:** PR #1 (progressive labs), PR #2 (full textbook narrative), PR #3 (review packaging), PR #4 (labs STATUS), PR #5 (narrative STATUS).
 
 ---
 
@@ -13,9 +13,9 @@
 ### Narrative (`chapters/`, `textbook/`)
 
 - [x] Full-course prose drafted (Ch. 01–14 + outline) — from PR #2 sources on this branch
-- [ ] Professor edit pass (see **What to edit — narrative** below)
-- [ ] Figures / diagrams added where prose currently describes them
-- [ ] Capstone dates / rubric weights finalized for the term
+- [x] Pedagogical defaults resolved (Docker/WSL2, frames, launches, Gazebo vs Isaac, Nav2 DWB, safety, Spark queue, capstone) — see **Narrative defaults** below
+- [x] Figures / diagrams added (`textbook/figures/`: TF tree, Bayes recursion, Nav2 BT sketch)
+- [x] Capstone rubric weights + **sample calendar** (placeholder term dates clearly marked in Ch. 14)
 
 ### Labs & code (`labs/`, `code/ros2_ws/`, `docker/`)
 
@@ -25,20 +25,22 @@
 - [ ] Swap stub laser / meshes after license review (still open)
 - [x] Docker Compose smoke **documented** (host CI green without Docker; optional job commented in `.github/workflows/smoke.yml` — enable when runners can pull `ros:humble`)
 - [x] Align chapter + lab launch names with real files (`description`, `sim_diff_drive`, `localization`, `mapping`, `nav2`)
-- [x] `nav2_params.yaml` comments diffed vs Nav2 Humble + AgileX open_class (no vendored trees)
+- [x] `nav2_params.yaml` comments diffed vs Nav2 Humble + AgileX open_class (no vendored trees); teaching controller **DWB**
 - [x] `labs/10-isaac-lab/` and `labs/12-orin-deploy/` documentation-first procedures (Spark vs Orin roles)
 
-### Hardware numbers (teaching stubs — verify on your Limo Pro)
+### Hardware numbers (published AgileX Limo Pro + labeled estimates)
 
-| Quantity | Course stub | Where defined | Edit? |
-|----------|-------------|---------------|-------|
-| Body L×W | 0.322 × 0.220 m | `limo_body.xacro`, Nav2 header comment | Confirm vs your chassis |
-| Height (URDF box) | 0.180 m body + mounts | `limo_body.xacro` | Align with published 251 mm overall if needed |
-| Wheelbase | 0.200 m | `limo_body.xacro` | Measure |
-| Tread (track width) | **0.175 m** | URDF, `kinematics.py`, odom defaults | Measure |
-| Wheel radius | **0.040 m** | URDF, kinematics, odom | Measure / tire |
-| \(v_{\max}\) | 1.0 m/s | odom node + Nav2 comments | Confirm controller limits |
-| Frames | `base_footprint` → `base_link` → `laser_link` / `camera_link` / `imu_link` | URDF | Keep REP-105; rename only with narrative pass |
+Sources: [Limo Pro user manual tech specs](https://github.com/agilexrobotics/limo_pro_doc/blob/master/Limo%20Pro%20user%20manual(EN).md), [LIMO ROS2 Humble doc](https://github.com/agilexrobotics/limo_ros2_doc/blob/master/LIMO-ROS2-humble(EN).md).
+
+| Quantity | Course value | Where defined | Status |
+|----------|--------------|---------------|--------|
+| Body L×W | **0.322 × 0.220 m** | `limo_body.xacro`, Nav2 comments | Published overall footprint |
+| Overall height | **0.251 m** | docs / `overall_height` xacro property | Published; URDF visual box stays 0.180 m hull |
+| Wheelbase | **0.200 m** | `limo_body.xacro` | Published |
+| Tread (track width) | **0.175 m** | URDF, `kinematics.py`, odom | Published |
+| Wheel radius | **0.040 m** | URDF, kinematics, odom | **Teaching estimate only** — not in AgileX body table; measure tire |
+| \(v_{\max}\) | **1.0 m/s** | odom + Nav2 comments | Published no-load max |
+| Frames | `base_footprint` → `base_link` → `laser_link` / `camera_link` / `imu_link` | URDF + Ch. 02–03 | Locked to course URDF |
 
 Unit test `tests/unit/test_hardware_constants.py` fails if URDF / sim defaults drift.
 
@@ -82,28 +84,32 @@ Optional `ros2-image` job remains commented in the workflow until runners reliab
 
 ---
 
-## What to edit — narrative (professor)
+## Narrative defaults (resolved without waiting on professor)
 
-Priority items also appear in chapter “Professor edit notes” footers:
+Chapter footers now say **Pedagogical defaults (resolved)** instead of open edit notes.
 
-1. **Docker host matrix** — Linux required vs WSL2 (Ch. 01).
-2. **Frame / URDF names** — sync prose with `physibot_limo.urdf.xacro` (Ch. 02–03).
-3. **Measured Limo Pro parameters** — replace stub tread / radius / footprint (Ch. 03, 09 + table above).
-4. **Launch file names** — canonical names are set (`description`, `sim_diff_drive`, `localization`, `mapping`, `nav2`); narrative polish can still deepen cross-links to `labs/NN-*`.
-5. **Gazebo vs Isaac Sim** for early dynamics/viz (Ch. 04).
-6. **Topic graph + bags** — real sim topics; bags outside git (Ch. 05).
-7. **Nav2 defaults** — course uses RPP; optional DWB/MPPI teaching note (`INSTALL_NAV2=1` image) (Ch. 09).
-8. **Isaac Lab pin** — course pin `v2.3.2` in Lab 10 / adaptation notes; confirm wheeled example ID per term (Ch. 10).
-9. **Lab safety / networking** — e-stop, SSID, `ROS_DOMAIN_ID`, Orin image (Ch. 11–12); Lab 12 has a docs checklist.
-10. **Spark booking** — accounts, shared FS, queues (Ch. 13).
-11. **Capstone** — rubric weights, due dates, physical robot required? (Ch. 14).
-12. **Figures** — TF tree, Nav2 BT, Bayes recursion, etc.
+| # | Topic | Resolution |
+|---|-------|------------|
+| 1 | Docker host matrix | Linux required; WSL2 supported with caveats (Ch. 01 §1.6) |
+| 2 | Frame / URDF names | Locked to `physibot_limo` / `limo_body` (`base_footprint`…) |
+| 3 | Limo Pro parameters | Published L×W×H / wheelbase / tread / \(v_{\max}\); wheel radius labeled estimate |
+| 4 | Launch names | `description`, `sim_diff_drive`, `localization`, `mapping`, `nav2` (+ `sim_stub`) |
+| 5 | Gazebo vs Isaac | Stub sim (+ Gazebo when licensed) for Ch. 03–09; Isaac Lab from Ch. 10 |
+| 6 | Topics + bags | Stub topic graph in Ch. 05; bags outside git |
+| 7 | Nav2 defaults | **DWB** teaching default; MPPI optional; Compose profile `nav2` |
+| 8 | Isaac Lab pin | **`v3.0.0`** + Humble `ros2` profile (Ch. 10 / adaptation notes) |
+| 9 | Safety / networking | E-stop + `ROS_DOMAIN_ID` principles in Ch. 11–12; secrets on LMS |
+| 10 | Spark booking | Generic lab-queue guidance (Ch. 13); URLs on LMS |
+| 11 | Capstone | Default rubric weights; physical optional; **sample calendar** marked |
+| 12 | Figures | `textbook/figures/{tf-tree,bayes-recursion,nav2-bt-sketch}.svg` |
+
+**Still open (true blockers / lab-local):** fleet tire measurement for wheel radius; LMS secrets (SSID, domain IDs, Spark booking URL); exact wheeled Isaac Lab tutorial name if upstream renames it.
 
 ## What to edit — labs / code
 
 1. ~~Freeze `limo_ros2` **humble** SHA in `docs/adaptation-notes/limo.md`.~~ Done: `dcc5a8637f83236ed6778af86ad826e46a20cd92`.
 2. Replace stub laser with Gazebo/Isaac sensor once assets are licensed.
-3. ~~Diff `nav2_params.yaml` against AgileX Nav2 examples after SHA freeze.~~ Done (comments + `nav2.md` table; no vendored trees).
+3. ~~Diff `nav2_params.yaml` against AgileX Nav2 examples after SHA freeze.~~ Done (comments + `nav2.md` table; teaching controller **DWB**; no vendored trees).
 4. ~~Fill `labs/10-isaac-lab/` and `labs/12-orin-deploy/` when pins exist.~~ Done (documentation-first; Isaac not in CI).
 5. Keep secrets (hostnames, Wi-Fi, keys) out of git.
 6. Enable optional Compose smoke CI job when runners can pull `ros:humble`.
@@ -115,25 +121,26 @@ Priority items also appear in chapter “Professor edit notes” footers:
 | Field | Value |
 |-------|-------|
 | **Pinned ROS 2 distro** | **Humble** |
-| **Rationale** | Matches current NVIDIA Isaac Lab official ROS 2 Docker image; one distro for Compose + Lab `ros2` profile. |
+| **Isaac Lab release** | **`v3.0.0`** (GA) |
+| **Rationale** | Lab `ros2` Docker profile installs Humble; one distro for Compose + Lab. |
 | **Isaac Lab profile** | `ros2` (`Dockerfile.ros2`, `.env.ros2`) |
 | **Caveat** | Re-verify each term — Lab ROS2 images have broken during Python upgrades before. |
 
 ### Evidence links
 
-1. [Isaac Lab installation](https://docs.nvidia.com/isaaclab/isaac-lab/installation) — Humble in `Dockerfile.ros2`.
-2. [Isaac Lab Docker guide](https://isaac-sim.github.io/IsaacLab/main/source/deployment/docker.html).
-3. [Isaac Sim ROS 2 tutorials](https://docs.isaacsim.omniverse.nvidia.com/latest/ros2_tutorials/index.html) — Humble and Jazzy.
-4. [Isaac Sim ROS 2 install](https://docs.isaacsim.omniverse.nvidia.com/latest/installation/install_ros.html).
+1. [Isaac Lab `v3.0.0` installation](https://isaac-sim.github.io/IsaacLab/v3.0.0/source/isaaclab/installation.html) — `ros2` profile = base + Humble.
+2. [Isaac Lab `v3.0.0` GitHub release](https://github.com/isaac-sim/IsaacLab/releases/tag/v3.0.0).
+3. [NVIDIA Isaac Lab installation hub](https://docs.nvidia.com/isaaclab/isaac-lab/installation).
+4. [Isaac Sim ROS 2 tutorials](https://docs.isaacsim.omniverse.nvidia.com/latest/ros2_tutorials/index.html) — Humble and Jazzy.
 
 ### Upstream pins
 
 | Component | Pin |
 |-----------|-----|
+| NVIDIA Isaac Lab | Git tag **`v3.0.0`** |
 | AgileX `limo_ros2` | https://github.com/agilexrobotics/limo_ros2 branch **`humble`** @ **`dcc5a8637f83236ed6778af86ad826e46a20cd92`** |
 | AgileX Nav2 example (diff only) | `agilex_open_class` `limo/limo_bringup/param/nav2.yaml` @ `8e799754af623c3cec954b74b186d63d6ce8fa62` |
-| Isaac Lab | tag **`v2.3.2`** (`37ddf626871758333d6ed89cf64ad702aef127d0`) — Lab 10 |
-| Nav2 / slam_toolbox | Humble apt (`INSTALL_NAV2=1` Compose profile) |
+| Nav2 / slam_toolbox | Humble apt (`INSTALL_NAV2=1` Compose profile); controller **DWB** |
 
 ---
 

@@ -51,7 +51,7 @@ Report structure (suggested):
 4. Sim-to-real / safety discussion (½–1 page)
 5. Limitations and next steps (½ page)
 
-## 14.4 Rubric (teaching draft)
+## 14.4 Rubric (course default weights)
 
 | Criterion | Weight | Looks like |
 |-----------|--------|------------|
@@ -61,13 +61,19 @@ Report structure (suggested):
 | Safety & ethics of claims | 15% | No overclaim on physical readiness |
 | Clarity | 10% | Figures readable; citations present |
 
-Instructor may adjust weights per cohort.
+Instructor may adjust weights per cohort; announce any change in week 1 of the capstone.
 
-## 14.5 Milestone plan (suggested)
+**Physical robot:** simulation is **required**; physical Limo Pro time is **optional** unless the cohort LMS page states otherwise.
 
-1. **Proposal (1 page)** — option, metrics, hardware need.
-2. **Mid-capstone checkpoint** — container builds; one baseline plot.
-3. **Final** — report + demo + limitations.
+## 14.5 Milestone plan — sample calendar
+
+> **Sample calendar only.** Dates below are placeholders for syllabus planning. Replace with the term’s LMS deadlines; do not treat these as authoritative.
+
+| Milestone | Sample week (15-week term) | Deliverable |
+|-----------|----------------------------|-------------|
+| Proposal | Week 12 | 1-page option, metrics, hardware need |
+| Mid-capstone checkpoint | Week 13 | Container builds; one baseline plot |
+| Final demo + report | Week 15 (exam week) | Report + ≤3 min video or live demo + limitations |
 
 Use Chapters 01–13 as a library: cite them; do not paste them.
 
@@ -98,8 +104,8 @@ Use Chapters 01–13 as a library: cite them; do not paste them.
 - Nav2, Isaac Lab, and AgileX docs as cited in earlier chapters
 - Capstone examples from prior cohorts (when available on LMS)
 
-## Professor edit notes
+## Pedagogical defaults (resolved)
 
-- Finalize rubric weights and due dates.
-- State whether physical robot time is required, optional, or unavailable this term.
-- Provide a handin URL and video size limits.
+- Rubric weights above are the course default; physical robot optional unless LMS says otherwise.
+- Due dates: use the **sample calendar** in §14.5 until the term LMS publishes real dates (clearly marked as sample).
+- Handin URL / video size limits: LMS only.

@@ -57,12 +57,15 @@ Put tuned files under [`code/ros2_ws/src/physibot_bringup/config/`](../code/ros2
 Typical flow once maps exist (maps come from Chapter 08; instructors may provide a starter map earlier):
 
 ```bash
-# Inside course container after colcon build
+# Prefer the Nav2-enabled image (Compose profile nav2 / ros2_nav2)
 source /ws/install/setup.bash
 ros2 launch physibot_bringup localization.launch.py
+# Uses config/amcl_params.yaml + maps/demo_map.* by default
 # In RViz: set initial pose (2D Pose Estimate)
 # Drive with teleop; watch particle cloud collapse
 ```
+
+Cross-link: [`labs/07-localization/`](../labs/07-localization/).
 
 Debugging checklist:
 
@@ -105,7 +108,7 @@ Absolute Trajectory Error (ATE) after time alignment is standard in SLAM literat
 
 **Runnable lab writeup:** [`labs/07-localization/`](../labs/07-localization/).
 
-## Professor edit notes
+## Pedagogical defaults (resolved)
 
-- Ship a default sim world + map for cohorts that have not finished Ch. 08.
-- Keep launch name `localization.launch.py`; ship a default sim world + map as needed.
+- Launch name: `localization.launch.py`.
+- Starter map: `physibot_bringup/maps/demo_map.yaml` (+ `.pgm`) so Ch. 07 is not blocked on finishing Ch. 08.

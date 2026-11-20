@@ -31,28 +31,29 @@ The Orin Nano is not a mini-DGX. Budget CPU/GPU for drivers, lidar, AMCL, and co
 
 Record the pins in lab runbooks (may stay out of public git if they include internal mirrors). PhysiBot packages overlay launch files and parameters only.
 
-## 12.3 Network, DDS, and `ROS_DOMAIN_ID`
+## 12.3 Network, DDS, e-stop, and `ROS_DOMAIN_ID`
 
-Lab conventions (fill with local values during professor edit):
+### Safety + networking checklist (course defaults)
 
-| Setting | Purpose |
-|---------|---------|
-| Wi-Fi / Ethernet SSID | Robot ↔ operator laptop |
-| `ROS_DOMAIN_ID` | Isolate class robots on shared Wi-Fi |
-| RMW (`rmw_fastrtps_cpp` default in Compose) | Match laptop tools |
-| Firewall / multicast | DDS discovery |
+| Setting | Course guidance |
+|---------|-----------------|
+| E-stop | Physical button + named owner; no motion until drill completed (Ch. 11) |
+| Wi-Fi / Ethernet SSID | Lab-assigned; **do not commit SSIDs or passwords to git** |
+| `ROS_DOMAIN_ID` | **Required.** Each robot/group uses a distinct ID on shared Wi-Fi so `cmd_vel` cannot cross-talk |
+| RMW | `rmw_fastrtps_cpp` (matches student Compose) unless staff directs otherwise |
+| Firewall / multicast | DDS discovery must work on the lab VLAN before blaming Nav2 |
 
-Before autonomy:
+Suggested student workflow (values come from the LMS roster, not this repo):
 
 ```bash
-# On Orin (example)
+export ROS_DOMAIN_ID=<your_assigned_id>   # e.g. 30–50 range for a cohort
 echo $ROS_DOMAIN_ID
 ros2 topic list
-# From operator laptop on same domain
+# From operator laptop on same domain / SSID
 ros2 topic hz /scan
 ```
 
-If discovery fails, fix network before debugging Nav2.
+If discovery fails, fix network before debugging Nav2. Never run two groups on domain `0` in the same room.
 
 ## 12.4 Real drivers vs. Gazebo plugins
 
@@ -119,8 +120,8 @@ Immediately after the run:
 
 **Runnable lab writeup:** [`labs/12-orin-deploy/`](../labs/12-orin-deploy/).
 
-## Professor edit notes
+## Pedagogical defaults (resolved)
 
-- Publish lab SSID, domain ID assignments, and map files via course LMS.
-- Decide native Humble vs. container-on-Orin for the fleet.
-- Schedule robot slots; one robot per group minimum when possible.
+- Secrets (SSID, passwords, hostnames) stay on LMS — never in git.
+- Prefer **native Humble on Orin** matching the sim distro when the fleet image allows; container-on-Orin is an alternate staff path.
+- Robot booking: treat like any shared lab instrument (one group per robot when possible).

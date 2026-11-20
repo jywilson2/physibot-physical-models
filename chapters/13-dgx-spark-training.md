@@ -13,9 +13,19 @@
 
 ## 13.1 Why Sparks exist in this course
 
-Isaac Lab workloads that are merely “possible” on a laptop become **iterable** on a Spark: larger batch sizes, more parallel environments, faster hill-climbing on rewards and domain-randomization schedules. PhysiBot’s two lab Sparks are shared infrastructure—like a microscope room. Booking, quotas, and accounts are local lab policy.
+Isaac Lab workloads that are merely “possible” on a laptop become **iterable** on a Spark: larger batch sizes, more parallel environments, faster hill-climbing on rewards and domain-randomization schedules. PhysiBot’s two lab Sparks are shared infrastructure—like a microscope room.
 
-Student everyday ROS work remains on [`docker/compose.yaml`](../docker/compose.yaml). Sparks are for Chapter 10-scale jobs done properly and for capstone training.
+### Generic lab-queue guidance (no secrets)
+
+Treat Sparks like any shared GPU instrument:
+
+1. **Book a slot** via the lab’s queue / calendar (URL on LMS—not in git).
+2. Use **course accounts** only; do not share passwords.
+3. Write outputs to the **shared filesystem** path staff publish for the term (see artifact layout below).
+4. Leave the machine cleaner than you found it: stop containers, free GPUs, delete scratch that is not cited in your handin.
+5. Prefer shorter teaching configs first; scale one axis per booking (Ch. 13 lab).
+
+Exact hostnames, queue scripts, and mount points stay lab-local. Student everyday ROS work remains on [`docker/compose.yaml`](../docker/compose.yaml). Sparks are for Chapter 10-scale jobs done properly and for capstone training. Pin Isaac Lab **`v3.0.0`** on Sparks unless staff announce a newer verified tag.
 
 ## 13.2 Containerized training aligned with Isaac Lab
 
@@ -83,8 +93,8 @@ Training on a Spark does not deploy itself. Export the policy/residual in the fo
 - Lab-internal Spark onboarding doc (LMS; may include secrets—keep out of git)
 - [`docs/adaptation-notes/isaac-lab.md`](../docs/adaptation-notes/isaac-lab.md)
 
-## Professor edit notes
+## Pedagogical defaults (resolved)
 
-- Publish booking URL, account creation, and shared filesystem paths.
-- Pin container digests for Sparks separately if they differ from student workstations.
-- Optionally provide a queue script template (Slurm or docker) without embedding credentials.
+- Booking / accounts / shared FS: LMS only (generic process above).
+- Isaac Lab tag on Sparks: **`v3.0.0`** unless staff override.
+- Optional queue templates may ship later without credentials.

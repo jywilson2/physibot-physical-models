@@ -29,6 +29,8 @@ Let \(x_{k}\) be the state (e.g. pose and maybe biases) and \(z_{k}\) a measurem
 
 with normalizing constant \(\eta\). Physical models enter twice: the **motion model** \(p(x_{k}\mid x_{k-1}, u_{k})\) and the **observation model** \(p(z_{k}\mid x_{k})\) from Chapters 03–05.
 
+![Bayes filter recursion](../textbook/figures/bayes-recursion.svg)
+
 ## 6.2 Linear Gaussian case: the Kalman filter
 
 If
@@ -114,7 +116,7 @@ Replay a bag from Chapter 05 and compare fused yaw from IMU+odom vs. odom alone 
 - [robot_localization docs](https://docs.ros.org/en/humble/p/robot_localization/)
 - Julier & Uhlmann — UKF original papers (grad)
 
-## Professor edit notes
+## Pedagogical defaults (resolved)
 
-- Provide a reference NumPy solution notebook for graders.
-- Decide whether `robot_localization` YAML ships in mid-course `physibot_bringup/config/`.
+- Mid-course fusion: prefer AMCL + odom for Ch. 07–09; optional `robot_localization` YAML is a stretch, not required for the core ladder.
+- Grader NumPy notebooks remain optional staff artifacts (not student blockers).

@@ -33,20 +33,24 @@ A *learned physical model* here might be a policy \(\pi(a\mid o)\) that respects
 
 ## 10.3 Official Docker profiles and the Humble pin
 
-Follow NVIDIA’s documentation—not a third-party blog—for installs:
+### Course pin (term baseline)
 
-- [Isaac Lab installation](https://docs.nvidia.com/isaaclab/isaac-lab/installation)
-- [Isaac Lab Docker guide](https://isaac-sim.github.io/IsaacLab/main/source/deployment/docker.html)
+| Field | Value |
+|-------|-------|
+| **Isaac Lab release** | **`v3.0.0`** (GA, 2026-10-20) |
+| Clone | `git clone --branch v3.0.0 --depth 1 https://github.com/isaac-sim/IsaacLab.git` |
+| Docs | [Installation (v3.0.0)](https://isaac-sim.github.io/IsaacLab/v3.0.0/source/isaaclab/installation.html), [Release notes](https://isaac-sim.github.io/IsaacLab/v3.0.0/source/refs/release_notes.html), [GitHub release](https://github.com/isaac-sim/IsaacLab/releases/tag/v3.0.0) |
+| ROS 2 in Lab Docker | **`ros2` profile** → base image + **ROS 2 Humble** (`Dockerfile.ros2`) |
 
-Profiles of interest:
+Follow NVIDIA’s documentation—not a third-party blog—for installs. Profiles of interest (v3.0.0):
 
 | Profile | Role |
 |---------|------|
-| `base` | Core Lab image |
-| **`ros2`** | Base + **ROS 2 Humble** (`Dockerfile.ros2`) |
-| `kitless` | Headless / alternate workflows per docs |
+| `base` | Lab on Isaac Sim image (GUI / full PhysX–RTX path) |
+| **`ros2`** | Base + **ROS 2 Humble** |
+| `kitless` | Standalone Newton / OV backends without Isaac Sim EULA |
 
-Course pin: **Humble**, matching student Compose ([`STATUS.md`](../STATUS.md)). Re-verify each term—Lab release notes have historically warned about intermittent ROS2 image issues during Python upgrades.
+Student day-to-day ROS remains Humble via Compose ([`STATUS.md`](../STATUS.md)). Re-verify each term—Lab release notes have historically warned about intermittent ROS2 image issues during Python upgrades. Isaac Lab 3.0 makes Isaac Sim optional for some training paths; ROS bridging still uses the `ros2` profile when you need DDS topics.
 
 ## 10.4 Adaptation plan (do not invent a stack)
 
@@ -98,8 +102,8 @@ If the term enables Lab’s `ros2` profile with a demo publisher/subscriber, sho
 
 **Runnable lab writeup:** [`labs/10-isaac-lab/`](../labs/10-isaac-lab/).
 
-## Professor edit notes
+## Pedagogical defaults (resolved)
 
-- Pin Isaac Lab release tag for the term before week 10.
-- Select the exact upstream example (wheeled task name) students clone.
-- Clarify GPU lab booking vs. Spark booking.
+- Isaac Lab pin: **`v3.0.0`** (see §10.3 and [`docs/adaptation-notes/isaac-lab.md`](../docs/adaptation-notes/isaac-lab.md)).
+- Adapt an upstream wheeled / locomotion tutorial from that tag—do not invent a full task suite. Exact tutorial name may shift with Lab docs; pick the current wheeled example at term start.
+- GPU workstation vs. Spark booking: see Ch. 13 generic lab-queue guidance.

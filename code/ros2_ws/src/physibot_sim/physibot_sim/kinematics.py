@@ -1,7 +1,7 @@
 """Planar differential-drive kinematics for PhysiBot labs.
 
 Pure Python (no ROS import) so unit tests run on the host without Docker.
-Limo Pro defaults: tread 0.175 m, wheel radius 0.04 m (course stub).
+Limo Pro defaults: tread 0.175 m (published); wheel radius 0.04 m (teaching estimate).
 """
 
 from __future__ import annotations

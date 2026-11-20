@@ -1,8 +1,16 @@
 <?xml version="1.0"?>
-<!-- Shared Limo-class links/joints (no outer <robot>). Included by physibot_*.urdf.xacro -->
+<!--
+  Shared Limo-class links/joints (no outer <robot>). Included by physibot_*.urdf.xacro
+  Published AgileX Limo Pro (manual tech specs): overall 322x220x251 mm, wheelbase 200 mm,
+  tread 175 mm, ground clearance 24 mm, v_max 1.0 m/s.
+  body_height 0.180 m = simplified visual/collision hull (not the published overall height).
+  wheel_radius 0.040 m = teaching estimate (not in AgileX body table — measure tire on fleet).
+  Sources: limo_pro_doc user manual; limo_ros2_doc LIMO-ROS2-humble(EN).md
+-->
 <xacro:property name="body_length" value="0.322"/>
   <xacro:property name="body_width" value="0.220"/>
   <xacro:property name="body_height" value="0.180"/>
+  <xacro:property name="overall_height" value="0.251"/>
   <xacro:property name="wheelbase" value="0.200"/>
   <xacro:property name="tread" value="0.175"/>
   <xacro:property name="wheel_radius" value="0.040"/>

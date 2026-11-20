@@ -40,6 +40,7 @@ Comments in `code/ros2_ws/src/physibot_bringup/config/nav2_params.yaml` record t
 2. YAML configs in `code/ros2_ws/src/physibot_bringup/config/`:
    - Footprint radius ~0.20 m (from 322×220 mm body)
    - `max_velocity` linear 1.0 m/s (published Limo Pro limit)
+   - **Controller teaching default: DWB** (`dwb_core::DWBLocalPlanner`); MPPI optional
 3. Docker Compose profile `nav2` builds image with `INSTALL_NAV2=1`.
 4. Physical robot (Ch. 12) reuses the same Nav2 graph with driver remaps.
 
