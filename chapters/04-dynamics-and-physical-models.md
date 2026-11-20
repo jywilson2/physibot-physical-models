@@ -108,6 +108,9 @@ ros2 bag record -o limo_dyn_sweep /cmd_vel /odom
 - Haarnoja et al. and related RL-for-locomotion literature — motivation for learned controllers (details in Ch. 10).
 - Isaac Lab docs: [installation](https://docs.nvidia.com/isaaclab/isaac-lab/installation), [Docker](https://isaac-sim.github.io/IsaacLab/main/source/deployment/docker.html)
 
+
+**Runnable lab writeup:** [`labs/04-odometry-models/`](../labs/04-odometry-models/).
+
 ## Professor edit notes
 
 - Insert measured step-response plots from the lab Limo fleet when available.

@@ -32,5 +32,6 @@ ROS 2 distro for all student containers: **Humble** (Isaac Lab–aligned). See `
 ## How to read
 
 - Each chapter ends with labs/exercises that cross-link `docker/`, `code/ros2_ws/`, and `docs/adaptation-notes/`.
+- Runnable labs (sim-first): `labs/` — start at `labs/README.md`.
 - Prefer upstream Nav2 / Isaac Lab / AgileX docs for flags that churn; chapters teach structure and pedagogy.
 - Textbook exports: see `textbook/README.md`.

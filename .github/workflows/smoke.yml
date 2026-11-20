@@ -14,6 +14,19 @@ jobs:
       - name: Repo layout smoke
         run: bash tests/smoke/test_repo_layout.sh
 
+  unit-kinematics:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+      - name: Install pytest
+        run: pip install pytest
+      - name: Diff-drive kinematics unit tests
+        run: python -m pytest tests/unit/test_diff_drive_kinematics.py -q
+
   # Docker image build is optional until registry/cache strategy is set.
   # Uncomment when runners can pull ros:humble images reliably:
   # ros2-image:
@@ -21,3 +34,4 @@ jobs:
   #   steps:
   #     - uses: actions/checkout@v4
   #     - run: docker compose -f docker/compose.yaml build ros2
+  #     - run: docker compose -f docker/compose.yaml --profile smoke run --rm smoke

@@ -13,18 +13,24 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     git \
     python3-colcon-common-extensions \
     python3-pip \
+    python3-pytest \
     python3-rosdep \
     ros-humble-rmw-cyclonedds-cpp \
     ros-humble-robot-state-publisher \
+    ros-humble-joint-state-publisher \
     ros-humble-xacro \
     ros-humble-tf2-ros \
     ros-humble-tf2-tools \
+    ros-humble-teleop-twist-keyboard \
     && rm -rf /var/lib/apt/lists/*
 
-# Optional Nav2 metapackage — large; enable when labs need it
+# Optional Nav2 + SLAM — large; enable for labs 07–09 via compose profile
 ARG INSTALL_NAV2=0
 RUN if [ "$INSTALL_NAV2" = "1" ]; then \
-      apt-get update && apt-get install -y --no-install-recommends ros-humble-navigation2 ros-humble-nav2-bringup \
+      apt-get update && apt-get install -y --no-install-recommends \
+        ros-humble-navigation2 \
+        ros-humble-nav2-bringup \
+        ros-humble-slam-toolbox \
       && rm -rf /var/lib/apt/lists/*; \
     fi
 

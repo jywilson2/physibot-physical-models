@@ -1,19 +1,24 @@
 # PhysiBot — STATUS
 
-**Phase:** PMT-3 textbook narrative drafted (full-course prose in `chapters/01`–`14`).  
+**Phase:** PMT-3 narrative + PMT-4 progressive labs merged onto `main`.  
 **Last updated:** 2026-11-20  
-**Default branch:** `main` (narrative landed via PR branch `cursor/textbook-narrative-ecea` unless fast-forwarded)
+**Default branch:** `main`
 
 ## Review checklist (current)
 
 - [x] Course repo tree scaffolded (README, licenses, chapters, textbook, Docker, ROS 2 ws)
 - [x] ROS 2 distro pin documented with NVIDIA evidence (**Humble**)
-- [x] GitHub repo live: https://github.com/jywilson2/physibot-physical-models
+- [x] Local git `main` committed and pushed to GitHub
+- [x] GitHub repo live: https://github.com/jywilson2/physibot-physical-models (public)
 - [x] **Full textbook narrative written** (`chapters/01`–`14` + outline; professor edit notes at each chapter end)
+- [x] Progressive labs ladder under `labs/` (01, 03, 04, 07, 08, 09, 10 stub, 12 stub)
+- [x] Course packages: `physibot_description`, `physibot_sim`, `physibot_bringup` (sim + Nav2 launches)
+- [x] Host unit tests for diff-drive kinematics + layout smoke in CI
 - [x] DOCX export verified via Pandoc (`./docs/export-tools/export-stub.sh` → `textbook/exports/physibot.docx`; gitignored)
 - [ ] PDF export verified (needs Quarto **or** Pandoc + TeX Live — TeX not present on cloud agent image)
-- [ ] Limo / Nav2 / Isaac example adaptations filled in (placeholders / stub launches remain)
-- [ ] Student smoke tests green in CI on a real runner
+- [ ] Upstream `limo_ros2` meshes/drivers vendored or git-submodule at frozen SHA
+- [ ] Docker Compose image build + `colcon` smoke green in CI (runner must pull `ros:humble`)
+- [ ] Limo / Nav2 / Isaac example adaptations filled in (placeholders / stub launches remain for Gazebo/Isaac assets)
 - [ ] Orin Nano deploy chapter runnable against lab hardware
 - [ ] DGX Spark training workflow validated in lab
 - [ ] Capstone brief + rubrics finalized (draft rubric in Ch. 14)
@@ -72,7 +77,7 @@ Priority items called out in chapter “Professor edit notes” footers:
 1. **Docker host matrix** — Linux required vs. WSL2 support (Ch. 01).
 2. **Frame / URDF names** — align all text with final adapted Limo description (Ch. 02–03).
 3. **Measured Limo Pro parameters** — track width, wheel radius, max \(v,\omega\), footprint polygon (Ch. 03, 09).
-4. **Launch file names** — replace `*_when adapted` placeholders (`sim_limo`, `slam_sim`, `localization_sim`, `nav2_sim`) once packages land (Ch. 03, 07–09).
+4. **Launch file names** — replace remaining `*_when adapted` placeholders once packages land (Ch. 03, 07–09).
 5. **Gazebo vs. Isaac Sim** for Ch. 03–09 dynamics/viz sandbox (Ch. 04 adaptation note).
 6. **Topic graph + bags** — paste real sim topic names; host sample bags outside git (Ch. 05).
 7. **Nav2 defaults** — DWB vs. MPPI; `INSTALL_NAV2` in student image (Ch. 09).
@@ -81,6 +86,15 @@ Priority items called out in chapter “Professor edit notes” footers:
 10. **Spark booking** — accounts, shared FS paths, queue scripts (Ch. 13).
 11. **Capstone** — rubric weights, due dates, whether physical robot is required (Ch. 14).
 12. **Figures** — add diagrams (TF tree, Nav2 BT, Bayes recursion) where prose currently describes them.
+
+## Code-side edit needs (professor / narrative coordination)
+
+1. **Chapters ↔ labs** — narrative chapters now cross-link `labs/NN-*`; keep those links current as launches rename.
+2. **Gazebo / Isaac assets** — replace `physibot_sim` stub laser with adapted Limo Gazebo or Isaac sensors before claiming realistic SLAM.
+3. **Nav2 params** — `nav2_params.yaml` is a teaching overlay; diff against AgileX Nav2 examples when SHA is frozen.
+4. **Licensing of vendor meshes** — keep geometric stubs until mesh license review is done.
+5. **Isaac Lab attach steps** — fill `labs/10-isaac-lab/` when Lab release tag is pinned.
+6. **Orin runbook** — lab hostnames / `ROS_DOMAIN_ID` conventions belong in private lab docs, not git secrets.
 
 ## ROS 2 / Isaac Lab decision
 
@@ -106,15 +120,37 @@ Priority items called out in chapter “Professor edit notes” footers:
 3. Note any Isaac Lab ROS2 image known issues in release notes.
 4. Update this section + README table in the same PR.
 
-## Remaining work (post-narrative)
+## Upstream adaptation pins
 
-1. **Export verify** — install Quarto or Pandoc+TeX; produce `textbook/exports/physibot.{pdf,docx}`.
-2. **Examples** — adapt AgileX Limo ROS 2, Nav2, and Isaac Lab demos per `docs/adaptation-notes/`.
-3. **CI** — flesh out smoke workflow beyond layout stubs; optional export job.
+| Component | Pin |
+|-----------|-----|
+| AgileX `limo_ros2` | https://github.com/agilexrobotics/limo_ros2 branch **`humble`** (SHA TBD) |
+| Nav2 | ROS 2 Humble apt (`ros-humble-navigation2`, `ros-humble-nav2-bringup`) |
+| slam_toolbox | `ros-humble-slam-toolbox` in Nav2 Compose profile |
+
+## How to run (code labs)
+
+```bash
+bash tests/smoke/test_repo_layout.sh
+python3 -m pytest tests/unit/test_diff_drive_kinematics.py -q
+
+docker compose -f docker/compose.yaml build ros2
+docker compose -f docker/compose.yaml run --rm ros2 bash
+# inside: colcon build --symlink-install && source install/setup.bash
+#         ros2 launch physibot_bringup sim_diff_drive.launch.py
+
+docker compose -f docker/compose.yaml --profile nav2 build ros2_nav2
+```
+
+## Remaining work
+
+1. **Export verify** — install Quarto or Pandoc+TeX; produce `textbook/exports/physibot.{pdf,docx}` (DOCX already verified on agent).
+2. **Examples** — freeze `limo_ros2` SHA; swap stub laser for Gazebo/Isaac when ready; adapt per `docs/adaptation-notes/`.
+3. **CI** — enable Docker smoke job when runners pull `ros:humble` reliably; optional export job.
 4. **Hardware labs** — Orin Nano + DGX Spark runbooks with lab-specific hostnames/secrets out of git.
 5. **Professor edit pass** — address the numbered narrative list above.
 
-## Out of scope for this narrative pass
+## Out of scope for this pass
 
 - Production-ready robot stacks written from scratch
 - Assuming students own DGX Sparks

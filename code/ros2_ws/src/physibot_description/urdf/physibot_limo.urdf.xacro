@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<!--
+  Course Limo-class description (Apache-2.0).
+  Footprint: AgileX Limo Pro published specs (322x220x251 mm, wheelbase 200 mm, tread 175 mm).
+  Upstream drivers/meshes: https://github.com/agilexrobotics/limo_ros2 (humble)
+-->
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="physibot_limo">
+  <xacro:include filename="limo_body.xacro"/>
+</robot>

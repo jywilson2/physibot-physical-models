@@ -31,13 +31,18 @@ Decision details and refresh checklist live in [`STATUS.md`](STATUS.md).
 
 ```
 chapters/          Full-course textbook narrative (Ch. 01–14)
+labs/              Progressive runnable labs (tied to chapter numbers)
 textbook/          Quarto book + export config (PDF/DOCX)
 docs/              Adaptation notes, build helpers
-code/ros2_ws/      ROS 2 workspace skeleton (student containers)
+code/ros2_ws/      ROS 2 workspace (description, sim, bringup)
 docker/            Dockerfiles + Compose for student workflow
-tests/smoke/       Minimal smoke / CI stubs
+tests/             Host smoke + unit tests
 scripts/           Local helper scripts
 ```
+
+## Progressive labs
+
+See [`labs/README.md`](labs/README.md) for the full ladder (description → teleop/odom → localization → mapping → Nav2 → Isaac/Orin stubs).
 
 ## Quick start (students)
 
@@ -54,14 +59,29 @@ Inside the container (Humble workspace):
 ```bash
 cd /ws && colcon build --symlink-install
 source install/setup.bash
-ros2 launch physibot_bringup sim_stub.launch.py
+ros2 launch physibot_bringup description.launch.py
+# later: sim_diff_drive.launch.py
+```
+
+Nav2 labs (07–09):
+
+```bash
+docker compose -f docker/compose.yaml --profile nav2 build ros2_nav2
+docker compose -f docker/compose.yaml --profile nav2 run --rm ros2_nav2 bash
+```
+
+Host unit tests (no Docker):
+
+```bash
+python3 -m pytest tests/unit/test_diff_drive_kinematics.py -q
+bash tests/smoke/test_repo_layout.sh
 ```
 
 Physical Limo Pro + Orin Nano workflows appear only in later chapters — early work stays in simulation.
 
 ## Hardware story
 
-1. **Early chapters** — Docker + Gazebo / Isaac Lab simulation; no robot required.
+1. **Early chapters** — Docker + course stub sim / Isaac Lab; no robot required.
 2. **Middle chapters** — localization, mapping, Nav2 on simulated Limo-class platforms (adapt existing OSS examples).
 3. **Later chapters** — deploy to Orin Nano on the physical Limo Pro; train / heavy Isaac Lab workloads on DGX Sparks.
 
@@ -72,7 +92,7 @@ DGX Sparks are instructor/lab backends — students are not assumed to own them.
 | Material | License |
 |----------|---------|
 | Textbook / narrative (`chapters/`, `textbook/`) | [CC BY-NC 4.0](https://creativecommons.org/licenses/by-nc/4.0/) — see notice in those trees |
-| Code (`code/`, `docker/`, scripts, CI) | [Apache License 2.0](LICENSE) — see [`LICENSE-CODE`](LICENSE-CODE) |
+| Code (`code/`, `docker/`, `labs/` READMEs as course ops, scripts, CI) | [Apache License 2.0](LICENSE) — see [`LICENSE-CODE`](LICENSE-CODE) |
 
 ## Textbook
 
@@ -80,7 +100,7 @@ Chapter sources: [`chapters/`](chapters/). Build PDF/DOCX from [`textbook/`](tex
 
 ## Status & review
 
-Full-course narrative drafted in `chapters/` (PMT-3). Example adaptations and verified PDF/DOCX exports remain open — see [`STATUS.md`](STATUS.md) for the review checklist and professor edit list.
+Full-course narrative drafted in `chapters/` (PMT-3); progressive labs ladder under `labs/` (PMT-4). Example adaptations and verified PDF exports remain open — see [`STATUS.md`](STATUS.md) for the review checklist and professor edit list.
 
 ## Brand
 

@@ -95,6 +95,9 @@ If the term enables Lab’s `ros2` profile with a demo publisher/subscriber, sho
 - [Isaac Sim ROS 2 tutorials](https://docs.isaacsim.omniverse.nvidia.com/latest/ros2_tutorials/index.html)
 - Course [`STATUS.md`](../STATUS.md) evidence table for Humble
 
+
+**Runnable lab writeup:** [`labs/10-isaac-lab/`](../labs/10-isaac-lab/).
+
 ## Professor edit notes
 
 - Pin Isaac Lab release tag for the term before week 10.

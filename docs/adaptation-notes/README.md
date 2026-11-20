@@ -10,5 +10,6 @@ into `code/ros2_ws`.
 | [`nav2.md`](nav2.md) | Navigation2 localization & nav |
 | [`isaac-lab.md`](isaac-lab.md) | Isaac Lab + ROS 2 Humble bridge |
 
-Do not copy large third-party trees wholesale without license review; submodule
-or document `apt`/`vcs` import steps in later tasks.
+Student-facing ladder: `labs/`. Do not copy large third-party trees wholesale
+without license review; submodule or document `apt`/`vcs` import steps when
+freezing a term SHA.

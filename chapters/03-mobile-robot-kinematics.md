@@ -154,6 +154,9 @@ Compare path length and final pose error if you add 5% scale bias on \(v\).
 - AgileX Limo ROS 2 repositories (pin URL/SHA in adaptation notes each term)
 - [Gazebo / ros_gz documentation](https://gazebosim.org/docs) for sim bringup patterns
 
+
+**Runnable lab writeup:** [`labs/03-kinematics-teleop/`](../labs/03-kinematics-teleop/).
+
 ## Professor edit notes
 
 - Replace stub lab with concrete `sim_limo.launch.py` name and package pins when Limo adaptation lands.
