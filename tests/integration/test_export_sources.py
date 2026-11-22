@@ -25,6 +25,19 @@ CHAPTER_FILES = [
     "14-capstone.md",
 ]
 
+PART2_CHAPTER_FILES = [
+    "00-outline.md",
+    "01-latent-world-models.md",
+    "02-isaac-lab-world-model-training.md",
+    "03-learned-occupancy-neural-mapping.md",
+    "04-latent-state-and-localization.md",
+    "05-planning-via-latent-rollout.md",
+    "06-sim-to-real-learned-nav.md",
+    "07-orin-on-robot-finetune.md",
+    "08-dgx-spark-world-model-scale.md",
+    "09-capstone-learned-navigation.md",
+]
+
 
 def test_all_chapters_exist_and_nonempty() -> None:
     for name in CHAPTER_FILES:
@@ -33,10 +46,23 @@ def test_all_chapters_exist_and_nonempty() -> None:
         assert path.stat().st_size > 100, f"{name} looks like a stub remnant"
 
 
+def test_part2_chapters_exist_and_nonempty() -> None:
+    for name in PART2_CHAPTER_FILES:
+        path = ROOT / "chapters" / "part2" / name
+        assert path.is_file(), f"part2/{name}"
+        assert path.stat().st_size > 100, f"part2/{name} looks empty"
+
+
 def test_qmd_includes_every_chapter() -> None:
     qmd = (ROOT / "textbook" / "physibot.qmd").read_text(encoding="utf-8")
     for name in CHAPTER_FILES:
         assert name in qmd, f"physibot.qmd missing include for {name}"
+
+
+def test_part2_qmd_includes_every_chapter() -> None:
+    qmd = (ROOT / "textbook" / "physibot-part2.qmd").read_text(encoding="utf-8")
+    for name in PART2_CHAPTER_FILES:
+        assert name in qmd, f"physibot-part2.qmd missing include for {name}"
 
 
 def test_export_script_lists_every_chapter() -> None:

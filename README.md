@@ -31,8 +31,10 @@ Decision details and refresh checklist live in [`STATUS.md`](STATUS.md).
 
 ```
 chapters/          Full-course textbook narrative (Ch. 01–14)
+chapters/part2/    Alternate Part 2 sketch — learned navigation (branch addition)
 labs/              Progressive runnable labs (tied to chapter numbers)
-textbook/          Quarto book + exports (sample PDF under exports/)
+labs/part2/        Learned-nav lab outlines (Isaac WM → neural map → rollout → fine-tune)
+textbook/          Quarto book + exports (sample PDF under exports/; Part 2 qmd)
 docs/              Adaptation notes, PDF/DOCX export helpers
 code/ros2_ws/      ROS 2 workspace (description, sim, bringup)
 docker/            Student ROS 2 image + textbook TeX export image
@@ -108,7 +110,7 @@ Chapter sources: [`chapters/`](chapters/). Build PDF/DOCX from [`textbook/`](tex
 
 ## Status & review
 
-Full-course narrative + progressive labs are on `main`. Professor review checklist, hardware numbers, and PDF/DOCX status: [`STATUS.md`](STATUS.md).
+Full-course narrative + progressive labs are on `main`. Branch `learned_navigation` adds an **alternate Part 2** sketch (latent world-model navigation replacing Nav2 in that track only). Professor review checklist, Part 2 open questions, hardware numbers, and PDF/DOCX status: [`STATUS.md`](STATUS.md).
 
 ## Brand
 

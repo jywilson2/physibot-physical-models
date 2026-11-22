@@ -9,7 +9,10 @@ required=(
   LICENSE-CODE
   chapters/00-outline.md
   chapters/14-capstone.md
+  chapters/part2/00-outline.md
+  chapters/part2/09-capstone-learned-navigation.md
   textbook/physibot.qmd
+  textbook/physibot-part2.qmd
   docker/compose.yaml
   docker/Dockerfile.ros2
   labs/README.md
@@ -21,6 +24,12 @@ required=(
   labs/09-nav2/README.md
   labs/10-isaac-lab/README.md
   labs/12-orin-deploy/README.md
+  labs/part2/README.md
+  labs/part2/01-isaac-world-model/README.md
+  labs/part2/02-neural-mapping/README.md
+  labs/part2/03-latent-rollout-planning/README.md
+  labs/part2/04-limo-on-robot-finetune/README.md
+  docs/adaptation-notes/learned-navigation.md
   code/ros2_ws/src/physibot_bringup/package.xml
   code/ros2_ws/src/physibot_bringup/launch/description.launch.py
   code/ros2_ws/src/physibot_bringup/launch/sim_diff_drive.launch.py

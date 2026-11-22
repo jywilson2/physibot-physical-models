@@ -30,6 +30,19 @@ Course launches: `description`, `sim_diff_drive`, `localization`, `mapping`,
 
 ROS 2 distro for all student containers: **Humble** (Isaac Lab–aligned). See `STATUS.md`.
 
+## Alternate Part 2 — learned navigation (addition)
+
+On branch `learned_navigation`, an **alternate Part 2** explores latent world-model
+navigation that **replaces** the Nav2 / AMCL / SLAM arc for that track only. It is
+an **addition** to this textbook, not a global deletion of Chapters 07–09.
+
+- Outline + stubs: [`part2/00-outline.md`](part2/00-outline.md)
+- Labs sketch: [`../labs/part2/`](../labs/part2/)
+- Quarto: [`../textbook/physibot-part2.qmd`](../textbook/physibot-part2.qmd)
+- Review status / open questions: [`../STATUS.md`](../STATUS.md)
+
+Shared foundation remains Chapters **01–06**. Classical **07–14** stay the Nav2 track.
+
 ## How to read
 
 - Each chapter ends with labs/exercises that cross-link `docker/`, `code/ros2_ws/`, and `docs/adaptation-notes/`.
