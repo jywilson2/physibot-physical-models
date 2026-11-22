@@ -1,0 +1,68 @@
+---
+title: "PhysiBot Part 2"
+subtitle: "Learned Navigation (Alternate Track) — Sketch"
+author: "PhysiBot contributors"
+date: last-modified
+license: "CC BY-NC 4.0"
+lang: en
+format:
+  pdf:
+    documentclass: book
+    toc: true
+    toc-depth: 2
+    number-sections: true
+    geometry:
+      - margin=1in
+  html:
+    toc: true
+    toc-depth: 2
+    number-sections: true
+    theme: cosmo
+  docx:
+    toc: true
+    number-sections: true
+# Part 2 sketch bodies live in ../chapters/part2 (CC BY-NC 4.0).
+# Classical Chapters 01–14 remain in physibot.qmd / main textbook export.
+---
+
+{{< include frontmatter/title.md >}}
+
+\newpage
+
+{{< include ../chapters/part2/00-outline.md >}}
+
+\newpage
+
+{{< include ../chapters/part2/01-latent-world-models.md >}}
+
+\newpage
+
+{{< include ../chapters/part2/02-isaac-lab-world-model-training.md >}}
+
+\newpage
+
+{{< include ../chapters/part2/03-learned-occupancy-neural-mapping.md >}}
+
+\newpage
+
+{{< include ../chapters/part2/04-latent-state-and-localization.md >}}
+
+\newpage
+
+{{< include ../chapters/part2/05-planning-via-latent-rollout.md >}}
+
+\newpage
+
+{{< include ../chapters/part2/06-sim-to-real-learned-nav.md >}}
+
+\newpage
+
+{{< include ../chapters/part2/07-orin-on-robot-finetune.md >}}
+
+\newpage
+
+{{< include ../chapters/part2/08-dgx-spark-world-model-scale.md >}}
+
+\newpage
+
+{{< include ../chapters/part2/09-capstone-learned-navigation.md >}}

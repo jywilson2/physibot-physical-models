@@ -1,15 +1,57 @@
 # PhysiBot — STATUS (professor review handoff)
 
-**Phase:** PMT-6 STATUS polish — narrative + labs checklists resolved (union after PR #4 + #5).  
-**Last updated:** 2026-11-20  
-**Default branch:** `main`  
+**Phase:** Part 2 learned-navigation **sketch** on branch `learned_navigation` (addition to textbook; classical Nav2 track unchanged on `main`).  
+**Last updated:** 2026-11-22  
+**Active branch for this handoff:** `learned_navigation` (base for draft PR → `main`)  
+**Default / classical track:** `main`  
 
-**Landed:** PR #1 (progressive labs), PR #2 (full textbook narrative), PR #3 (review packaging), PR #4 (labs STATUS), PR #5 (narrative STATUS).  
-**Export refresh:** Regenerated `textbook/exports/physibot.pdf` (~295 KB, 46 pp, figures embedded) from `main` after PR #4/#5 via `./docs/export-tools/export-stub.sh` (DOCX regenerated locally; gitignored).
+**Landed on main:** PR #1 (progressive labs), PR #2 (full textbook narrative), PR #3 (review packaging), PR #4 (labs STATUS), PR #5 (narrative STATUS), export refresh after #4/#5.  
+**This branch:** Alternate **Part 2** outline + chapter stubs + lab sketches (no full training pipelines yet).
 
 ---
 
-## Review checklist
+## Part 2 — learned navigation sketch (review now)
+
+**Intent:** Full alternate Part 2 that can sit as an **addition** to the existing textbook. Latent world model + rollout planning **replaces** Nav2/AMCL/SLAM in *this* track only. Sim-first; on-robot fine-tuning allowed; **no hard GPU-time caps**.
+
+| Deliverable | Path | Status |
+|-------------|------|--------|
+| Part 2 outline + replace/keep map | [`chapters/part2/00-outline.md`](chapters/part2/00-outline.md) | Sketch ready |
+| Chapter stubs P2-01…P2-09 | [`chapters/part2/`](chapters/part2/) | Outline / learning outcomes |
+| Lab sequence (4 labs) | [`labs/part2/`](labs/part2/) | Outline only |
+| Adaptation note | [`docs/adaptation-notes/learned-navigation.md`](docs/adaptation-notes/learned-navigation.md) | Sketch |
+| Quarto book (Part 2 only) | [`textbook/physibot-part2.qmd`](textbook/physibot-part2.qmd) | Wired to stubs |
+| Classical Ch. 01–14 / Nav2 labs | unchanged intent | Still the other track |
+
+### Shared with Part 1 vs replaced
+
+| Shared (keep) | Replaced in Part 2 track |
+|---------------|---------------------------|
+| Ch. 01–06 physical-models foundation | Ch. 07 AMCL → P2-04 latent state |
+| Docker / Humble / Isaac Lab `v3.0.0` pins | Ch. 08 SLAM/occupancy → P2-03 neural mapping (**first-class lab**) |
+| URDF / frames / Limo hardware story | Ch. 09 Nav2 → P2-05 latent rollout planning |
+| Safety, DDS, Spark booking principles | Ch. 10–14 roles → P2-02/06/07/08/09 (Isaac earlier; Orin fine-tune; WM capstone) |
+
+### Open questions for professor review
+
+1. **Teaching world-model family** — Dreamer-class RSSM, occupancy-centric hybrid, or another pinned paper/codebase for student labs?
+2. **Neural map representation default** — BEV grid logits vs. implicit field vs. hybrid with classical prior?
+3. **Rollout planner default** — CEM / MPPI-in-latent / other (vocabulary continuity with Nav2 MPPI vs. simplest teaching code)?
+4. **Exact Isaac Lab upstream example names** for WM + wheeled Limo-class for tag `v3.0.0` (tutorials churn)?
+5. **Fine-tune scope on Orin** — dynamics head only vs. full WM; max supervised session length (ops, not a GPU-time pedagogy cap)?
+6. **Cohort scheduling** — Part 2 instead of classical 07–14, or optional second track / comparison capstone?
+7. **Export packaging** — keep Part 2 as separate Quarto book only, or eventually append to the main PDF?
+8. **Capstone rubric weights** in P2-09 — accept draft 30/25/20/15/10 or revise?
+
+### Non-goals still in force
+
+- No production policy weights or full training pipelines in this pass.
+- Do **not** delete Nav2 content from the classical tree / `main` intent.
+- Do **not** rewrite Part 1 as if Nav2 were gone globally.
+
+---
+
+## Review checklist (classical track — already resolved on main)
 
 ### Narrative (`chapters/`, `textbook/`)
 

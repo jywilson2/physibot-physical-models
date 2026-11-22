@@ -7,8 +7,9 @@ into `code/ros2_ws`.
 | Note | Focus |
 |------|--------|
 | [`limo.md`](limo.md) | AgileX Limo Pro ROS 2 / Orin |
-| [`nav2.md`](nav2.md) | Navigation2 localization & nav |
+| [`nav2.md`](nav2.md) | Navigation2 localization & nav (classical track) |
 | [`isaac-lab.md`](isaac-lab.md) | Isaac Lab + ROS 2 Humble bridge |
+| [`learned-navigation.md`](learned-navigation.md) | Alternate Part 2: latent WM / neural maps / rollout (sketch) |
 
 Student-facing ladder: `labs/`. Do not copy large third-party trees wholesale
 without license review; submodule or document `apt`/`vcs` import steps when
